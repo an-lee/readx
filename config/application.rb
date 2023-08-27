@@ -24,7 +24,7 @@ module Bitbull
     config.action_view.image_loading = 'lazy'
 
     config.i18n.available_locales = %i[en zh-CN]
-    config.i18n.default_locale = :'zh-CN'
+    config.i18n.default_locale = :en
 
     config.generators do |g|
       g.orm :active_record, primary_key_type: :uuid

@@ -24,10 +24,20 @@ class Translation < ApplicationRecord
   CONTEXT
 
   belongs_to :translatable, polymorphic: true
+
   has_many :llm_messages, as: :source, dependent: nil
+
+  scope :for_locale, ->(locale) { where(locale:) }
+  scope :untranslated, -> { where(value: nil) }
+  scope :translated, -> { where.not(value: nil) }
+
+  def original_text
+    @original_text ||= translatable.send(key)
+  end
 
   def translate!
     return value if value.present?
+    return if original_text.blank?
 
     llm_message.chat if llm_message.pending?
     update!(
@@ -47,7 +57,7 @@ class Translation < ApplicationRecord
     @llm_message ||= llm_messages.first || llm_messages.create!(
       llm_message_type: 'translate',
       context: llm_translate_context.format(locale:),
-      prompt: translatable.send(key)
+      prompt: original_text
     )
   end
 end

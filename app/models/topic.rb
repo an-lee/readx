@@ -7,6 +7,7 @@
 #  id         :uuid             not null, primary key
 #  content    :text
 #  embedding  :vector
+#  locale     :string           default("en"), not null
 #  slug       :string
 #  summary    :text
 #  title      :string           not null
@@ -18,7 +19,12 @@
 #  index_topics_on_slug  (slug) UNIQUE
 #
 class Topic < ApplicationRecord
+  extend FriendlyId
+
+  friendly_id :title, use: :slugged
+
   has_many :stories, dependent: nil
+  has_many :translations, as: :translatable, dependent: :destroy
 
   has_neighbors :embedding
 
@@ -47,5 +53,32 @@ class Topic < ApplicationRecord
 
   def neighbor_ids_cache_key
     "topic:#{id}:neighbors"
+  end
+
+  def translate!(lang = 'zh-CN')
+    return if locale == lang
+
+    %i[title content summary].each do |attr|
+      next if attr.blank?
+
+      translations.find_or_create_by!(
+        key: attr,
+        locale: lang
+      )
+    end
+  end
+
+  def summary_in(locale = 'zh-CN')
+    translations.find_or_create_by(key: :summary, locale:)&.value || summary
+  end
+
+  def content_in(locale = 'zh-CN')
+    return if content.blank?
+
+    translations.find_or_create_by(key: :content, locale:)&.value || content
+  end
+
+  def title_in(locale = 'zh-CN')
+    translations.find_or_create_by(key: :title, locale:)&.value || title
   end
 end

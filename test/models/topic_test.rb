@@ -7,6 +7,7 @@
 #  id         :uuid             not null, primary key
 #  content    :text
 #  embedding  :vector
+#  locale     :string           default("en"), not null
 #  slug       :string
 #  summary    :text
 #  title      :string           not null
