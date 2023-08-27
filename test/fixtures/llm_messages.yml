@@ -3,6 +3,7 @@
 # Table name: llm_messages
 #
 #  id               :uuid             not null, primary key
+#  context          :text
 #  llm_message_type :string
 #  prompt           :text             not null
 #  response         :jsonb

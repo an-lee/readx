@@ -10,7 +10,7 @@
 #  html         :text
 #  locale       :string           default("en"), not null
 #  published_at :datetime
-#  score        :integer          default(5), not null
+#  score        :integer          default(0), not null
 #  sentiment    :string           default("neutral")
 #  source       :jsonb            not null
 #  status       :string           default("drafted"), not null

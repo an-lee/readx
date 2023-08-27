@@ -4,6 +4,7 @@ class CreateLlmMessages < ActiveRecord::Migration[7.0]
       t.string :llm_message_type, index: true
       t.uuid :source_id
       t.string :source_type
+      t.text :context
       t.text :prompt, null: false
       t.jsonb :response
       t.string :status, null: false, default: 'pending'

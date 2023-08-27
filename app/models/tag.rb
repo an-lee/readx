@@ -14,4 +14,8 @@
 #  index_tags_on_name  (name) UNIQUE
 #
 class Tag < ApplicationRecord
+  validates :name, presence: true, uniqueness: true
+
+  has_many :taggings, dependent: :destroy
+  has_many :stories, through: :taggings, source: :taggable, source_type: 'Story'
 end

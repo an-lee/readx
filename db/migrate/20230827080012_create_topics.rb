@@ -4,6 +4,8 @@ class CreateTopics < ActiveRecord::Migration[7.0]
       t.string :title, null: false
       t.string :slug, index: { unique: true }
       t.text :summary
+      t.text :content
+      t.vector :embedding
 
       t.timestamps
     end

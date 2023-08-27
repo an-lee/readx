@@ -10,7 +10,7 @@
 #  html         :text
 #  locale       :string           default("en"), not null
 #  published_at :datetime
-#  score        :integer          default(5), not null
+#  score        :integer          default(0), not null
 #  sentiment    :string           default("neutral")
 #  source       :jsonb            not null
 #  status       :string           default("drafted"), not null
@@ -30,4 +30,88 @@
 #  index_stories_on_url         (url) UNIQUE
 #
 class Story < ApplicationRecord
+  include Stories::Analyzable
+  include Stories::Collectable
+  include Stories::Classifiable
+  include Stories::Scrapable
+  include Stories::Translatable
+
+  include AASM
+  extend Enumerize
+
+  belongs_to :topic, optional: true
+
+  has_many :llm_messages, as: :source, dependent: :destroy
+  has_many :analyze_messages, -> { where(llm_message_type: 'analyze').order(updated_at: :desc) }, class_name: 'LlmMessage', as: :source, inverse_of: false, dependent: nil
+  has_many :embed_messages, -> { where(llm_message_type: 'embed').order(updated_at: :desc) }, class_name: 'LlmMessage', as: :source, inverse_of: false, dependent: nil
+
+  has_many :taggings, as: :taggable, dependent: :destroy
+  has_many :tags, through: :taggings
+
+  has_many :translations, as: :translatable, dependent: :destroy
+
+  has_neighbors :embedding
+
+  delegate :present?, to: :html, prefix: true
+  delegate :present?, to: :summary, prefix: true
+  delegate :positive?, to: :score, prefix: true
+
+  aasm column: :status do
+    state :drafted, initial: true
+    state :scraped
+    state :analyzed
+    state :classified
+
+    event :scrape, guards: :html_present? do
+      transitions from: :drafted, to: :scraped
+    end
+
+    event :analyze, guards: :summary_present? do
+      transitions from: :scraped, to: :analyzed
+    end
+
+    event :classify, guards: :score_positive? do
+      transitions from: :analyzed, to: :classified
+    end
+  end
+
+  def video?
+    youtube? || bilibili?
+  end
+
+  def video_embed_url
+    return youtube_embed_url if youtube?
+
+    bilibili_embed_url if bilibili?
+  end
+
+  def youtube?
+    yt_id.present?
+  end
+
+  def youtube_embed_url
+    "https://www.youtube.com/embed/#{yt_id}"
+  end
+
+  def yt_id
+    if url.match?(%r{\Ahttps?://(www\.)?(youtu\.be|youtube\.com/shorts)/})
+      url.split('/').compact.last
+    elsif url.match?(%r{\Ahttps?://(www\.)?youtube\.com/watch})
+      URI.parse(url).query&.split('&')&.find { |q| q.start_with? 'v=' }&.split('=')&.last
+    end
+  end
+
+  def bilibili?
+    url.match?(%r{\Ahttps?://(www\.)?bilibili\.com})
+  end
+
+  def bilibili_id
+    return unless bilibili?
+
+    URI.parse(url).path.split('/').compact.last
+  end
+
+  def bilibili_embed_url
+    "https://player.bilibili.com/player.html?bvid=#{bilibili_id}&autoplay=0"
+  end
 end

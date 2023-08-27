@@ -16,7 +16,7 @@ class CreateStories < ActiveRecord::Migration[7.0]
       t.string :locale, null: false, default: 'en'
       t.string :story_type, null: false, index: true, default: 'fact'
       t.string :sentiment, index: true, default: 'neutral'
-      t.integer :score, null: false, default: 5
+      t.integer :score, null: false, default: 0
       t.text :summary
 
       t.uuid :topic_id, index: true

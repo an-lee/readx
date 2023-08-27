@@ -3,9 +3,9 @@ class CreateTranslations < ActiveRecord::Migration[7.0]
     create_table :translations, id: :uuid do |t|
       t.uuid :translatable_id, null: false
       t.string :translatable_type, null: false
-      t.string :locale, null: false
+      t.string :locale, null: false, index: true
       t.string :key, null: false
-      t.text :value, null: false
+      t.text :value
 
       t.timestamps
     end

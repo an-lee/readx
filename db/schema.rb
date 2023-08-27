@@ -20,6 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_27_084831) do
     t.string "llm_message_type"
     t.uuid "source_id"
     t.string "source_type"
+    t.text "context"
     t.text "prompt", null: false
     t.jsonb "response"
     t.string "status", default: "pending", null: false
@@ -40,7 +41,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_27_084831) do
     t.string "locale", default: "en", null: false
     t.string "story_type", default: "fact", null: false
     t.string "sentiment", default: "neutral"
-    t.integer "score", default: 5, null: false
+    t.integer "score", default: 0, null: false
     t.text "summary"
     t.uuid "topic_id"
     t.vector "embedding"
@@ -72,6 +73,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_27_084831) do
     t.string "title", null: false
     t.string "slug"
     t.text "summary"
+    t.text "content"
+    t.vector "embedding"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_topics_on_slug", unique: true
@@ -82,9 +85,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_27_084831) do
     t.string "translatable_type", null: false
     t.string "locale", null: false
     t.string "key", null: false
-    t.text "value", null: false
+    t.text "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["locale"], name: "index_translations_on_locale"
     t.index ["translatable_id", "translatable_type", "locale", "key"], name: "index_translations_on_translatable_and_locale_and_key", unique: true
   end
 

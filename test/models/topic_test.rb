@@ -5,6 +5,8 @@
 # Table name: topics
 #
 #  id         :uuid             not null, primary key
+#  content    :text
+#  embedding  :vector
 #  slug       :string
 #  summary    :text
 #  title      :string           not null

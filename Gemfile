@@ -35,8 +35,40 @@ gem 'jbuilder'
 # Use Redis adapter to run Action Cable in production
 gem 'redis'
 
+# Enumerated attributes with I18n and ActiveRecord/Mongoid support
+gem 'enumerize'
+
+# AASM - State machines for Ruby classes
+gem 'aasm'
+gem 'after_commit_everywhere'
+
+# FriendlyId is the "Swiss Army bulldozer" of slugging and permalink plugins for Active Record. It lets you create pretty URLs and work with human-friendly strings as if they were numeric ids.
+gem 'friendly_id'
+
+# Simple, but flexible HTTP client library, with support for multiple backends.
+gem 'faraday'
+
+# Faraday 1x and 2.x compatible extraction of FaradayMiddleware::FollowRedirects
+gem 'faraday-follow_redirects'
+
+# Catches exceptions and retries each request a limited number of times
+gem 'faraday-retry'
+
+gem 'ruby-readability', require: 'readability'
+
+# Ruby gem for web scraping purposes.
+gem 'metainspector'
+
+# Ruby gem to convert html into markdown
+gem 'reverse_markdown'
+
 # Nearest neighbor search for Rails and Postgres
 gem 'neighbor'
+
+# Build LLM-backed Ruby applications
+gem 'langchainrb', require: 'langchain'
+gem 'pgvector'
+gem 'ruby-openai'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"

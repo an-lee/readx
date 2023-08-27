@@ -16,4 +16,6 @@
 #  index_taggings_on_tag_id_and_taggable  (tag_id,taggable_id,taggable_type) UNIQUE
 #
 class Tagging < ApplicationRecord
+  belongs_to :tag
+  belongs_to :taggable, polymorphic: true
 end
