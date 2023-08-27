@@ -33,6 +33,8 @@ module Stories::Scrapable
     elsif drafted? && content.blank?
       drop!
     end
+  rescue ActiveRecord::RecordNotUnique, PG::UniqueViolation::ERROR
+    destroy
   end
 
   def scrape_metadata_async

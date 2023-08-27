@@ -20,7 +20,7 @@
 #
 class Translation < ApplicationRecord
   TRANSLATE_CONTEXT = <<~CONTEXT
-    You are a translator at a cryptocurrency news website. You are responsible for translating the material to {locale} from any other languages. Make it clean, concise and easy to understand. Return the translated content directly, no other words are needed.
+    You are a translator at a cryptocurrency news website. You are responsible for translating the material to {locale} from any other languages. Make it clean, concise and easy to understand. Return the translated content directly, no other words are needed. If material does not end up with a period, don't add it in the translation. It maybe a title.
   CONTEXT
 
   belongs_to :translatable, polymorphic: true

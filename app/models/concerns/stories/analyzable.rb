@@ -49,7 +49,7 @@ module Stories::Analyzable
   CONTEXT
 
   ANALYZE_PROMPT_TEMPLATE = <<~PROMPT
-    The article content is provided below delimited by four backticks, in Markdown format.
+    The article content is provided below delimited by four backticks, in Markdown format. The article is scraped from Internet. It maybe some error instead of the real article because the original website denies our request. If so, please mark the score as 1 and sentiment as neutral.
 
     Article title: {title}
     Article content: ````{content}````
@@ -65,21 +65,28 @@ module Stories::Analyzable
 
     analyze_message.chat if analyze_message.pending?
 
-    json_response = llm_parser.parse analyze_message.result
-    update!(
+    json_response = json_parse analyze_message.result
+    params = {
       title: json_response['title'],
       summary: json_response['summary'],
       sentiment: json_response['sentiment'],
       locale: json_response['locale'],
       score: json_response['score'],
       story_type: json_response['type']
-    )
-    json_response['tags'].each do |tag_name|
+    }.compact_blank
+
+    update(**params)
+
+    json_response['tags']&.each do |tag_name|
       tag = Tag.find_or_create_by(name: tag_name.upcase)
       taggings.find_or_create_by(tag:)
     end
 
-    analyze! if may_analyze?
+    if score <= 5 && may_drop?
+      drop!
+    elsif may_classify?
+      analyze!
+    end
   end
 
   def analyze_content_async
@@ -105,6 +112,14 @@ module Stories::Analyzable
 
   def llm_parser
     @llm_parser ||= Langchain::OutputParsers::StructuredOutputParser.from_json_schema(ANALYZE_RESULT_JSON_SCHEMA)
+  end
+
+  def json_parse(text)
+    json = text.include?('```') ? text.strip.split(/```(?:json)?/)[1] : text.strip
+    parsed = JSON.parse(json)
+    parsed.compact_blank!
+  rescue JSON::ParserError
+    {}
   end
 
   def analyze_prompt

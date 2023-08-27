@@ -76,6 +76,10 @@ gem 'sidekiq'
 # Scheduler / Cron for Sidekiq jobs
 gem 'sidekiq-cron'
 
+# The ultimate pagination ruby gem
+gem 'pagy'
+gem 'pagy_cursor'
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 

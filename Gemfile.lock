@@ -201,6 +201,10 @@ GEM
     nio4r (2.5.9)
     nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
+    pagy (6.0.4)
+    pagy_cursor (0.6.0)
+      activerecord (>= 5)
+      pagy (>= 6, < 7)
     parallel (1.23.0)
     parser (3.2.2.3)
       ast (~> 2.4.1)
@@ -355,6 +359,8 @@ DEPENDENCIES
   langchainrb
   metainspector
   neighbor
+  pagy
+  pagy_cursor
   pg
   pgvector
   propshaft

@@ -4,15 +4,16 @@
 #
 # Table name: topics
 #
-#  id         :uuid             not null, primary key
-#  content    :text
-#  embedding  :vector
-#  locale     :string           default("en"), not null
-#  slug       :string
-#  summary    :text
-#  title      :string           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id           :uuid             not null, primary key
+#  content      :text
+#  embedding    :vector
+#  locale       :string           default("en"), not null
+#  published_at :datetime
+#  slug         :string
+#  summary      :text
+#  title        :string           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
 # Indexes
 #
@@ -37,7 +38,7 @@ class Topic < ApplicationRecord
   end
 
   def neighbor_ids
-    return if ebmedding.blank?
+    return if embedding.blank?
     return Rails.cache.read(neighbor_ids_cache_key) if Rails.cache.exist?(neighbor_ids_cache_key)
 
     ids = []

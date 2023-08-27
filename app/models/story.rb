@@ -39,6 +39,9 @@ class Story < ApplicationRecord
   include AASM
   extend Enumerize
 
+  enumerize :sentiment, in: %i[positive neutral negative], predicates: true, scope: true
+  enumerize :story_type, in: %i[fact opinion], predicates: true, scope: true
+
   belongs_to :topic, optional: true
 
   has_many :llm_messages, as: :source, dependent: :destroy
@@ -51,6 +54,8 @@ class Story < ApplicationRecord
   has_many :translations, as: :translatable, dependent: :destroy
 
   has_neighbors :embedding
+
+  before_validation :setup_default_attributes
 
   after_commit :scrape_metadata_async, on: :create
 
@@ -80,6 +85,12 @@ class Story < ApplicationRecord
     event :drop do
       transitions from: %i[scraped analyzed classified], to: :dropped
     end
+  end
+
+  def domain_name
+    return if domain.blank?
+
+    domain.split('.').last(2).join('.')
   end
 
   def video?
@@ -120,5 +131,11 @@ class Story < ApplicationRecord
 
   def bilibili_embed_url
     "https://player.bilibili.com/player.html?bvid=#{bilibili_id}&autoplay=0"
+  end
+
+  private
+
+  def setup_default_attributes
+    self.domain = URI.parse(url).host
   end
 end

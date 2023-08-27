@@ -10,15 +10,7 @@ module Stories::Classifiable
     embed_message.embed if embed_message.pending?
     update(embedding: embed_message.result) if embedding.blank?
 
-    if find_topic.present? && find_topic.neighbor_distance < 0.1
-      update(topic: find_topic)
-    else
-      Topic.create!(
-        title:,
-        summary:,
-        embedding:
-      )
-    end
+    update(topic: find_or_create_topic) if topic.blank?
 
     classify! if may_classify?
   end
@@ -27,10 +19,22 @@ module Stories::Classifiable
     Stories::ClassifyJob.perform_later id
   end
 
-  def find_topic
+  def find_or_create_topic
+    return nearest_topic if nearest_topic.present? && nearest_topic.neighbor_distance < 0.1
+    return unless fact?
+
+    Topic.create!(
+      title:,
+      summary:,
+      embedding:,
+      published_at:
+    )
+  end
+
+  def nearest_topic
     return if embedding.blank?
 
-    @find_topic ||= Topic.nearest_neighbors(:embedding, embedding, distance: :cosine).first
+    @nearest_topic ||= Topic.nearest_neighbors(:embedding, embedding, distance: :cosine).first
   end
 
   def embed_message

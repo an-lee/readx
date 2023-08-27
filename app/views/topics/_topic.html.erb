@@ -1,0 +1,33 @@
+<div 
+  data-controller="topic" 
+  data-topic-active-value="false"
+  data-action="click->topic#toggle" 
+  id="<%= dom_id topic %>" 
+  class="p-4 rounded cursor-pointer mb-4">
+  <div class="text-lg mb-2">
+    <%= topic.title_in(current_locale) %>
+
+    <% if topic.published_at < 3.days.ago %>
+      <span data-controller="time-format" 
+            data-time-format-timestamp-value="<%= topic.published_at.to_i %>" 
+        class="text-sm opacity-50">
+        <%= topic.published_at %>
+      </span>
+    <% else %>
+      <span class="text-sm opacity-50">
+        <%= time_ago_in_words(topic.published_at) %>
+      </span>
+    <% end %>
+  </div>
+  <div data-topic-target="summary" class="opacity-70 line-clamp-3">
+    <%= topic.summary_in(current_locale) %>
+  </div>
+
+  <div data-topic-target="links" class="hidden mt-4">
+    <%= render partial: 'stories/story', collection: topic.stories, as: :story %>
+
+    <div class="flex justify-end">
+      <%= link_to 'topic', topic_path(topic), target: "_blank", class: "text-sm opacity-70 link" %>
+    </div>
+  </div>
+</div>
