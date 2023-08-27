@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: tags
@@ -11,7 +13,7 @@
 #
 #  index_tags_on_name  (name) UNIQUE
 #
-require "test_helper"
+require 'test_helper'
 
 class TagTest < ActiveSupport::TestCase
   # test "the truth" do

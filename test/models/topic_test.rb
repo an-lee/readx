@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: topics
@@ -13,7 +15,7 @@
 #
 #  index_topics_on_slug  (slug) UNIQUE
 #
-require "test_helper"
+require 'test_helper'
 
 class TopicTest < ActiveSupport::TestCase
   # test "the truth" do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: llm_messages
@@ -17,7 +19,7 @@
 #  index_llm_messages_on_llm_message_type  (llm_message_type)
 #  index_llm_messages_on_source            (source_id,source_type)
 #
-require "test_helper"
+require 'test_helper'
 
 class LlmMessageTest < ActiveSupport::TestCase
   # test "the truth" do

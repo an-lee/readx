@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: stories
@@ -27,7 +29,7 @@
 #  index_stories_on_topic_id    (topic_id)
 #  index_stories_on_url         (url) UNIQUE
 #
-require "test_helper"
+require 'test_helper'
 
 class StoryTest < ActiveSupport::TestCase
   # test "the truth" do

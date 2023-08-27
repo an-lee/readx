@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: translations
@@ -15,7 +17,7 @@
 #
 #  index_translations_on_translatable_and_locale_and_key  (translatable_id,translatable_type,locale,key) UNIQUE
 #
-require "test_helper"
+require 'test_helper'
 
 class TranslationTest < ActiveSupport::TestCase
   # test "the truth" do

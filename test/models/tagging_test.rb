@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: taggings
@@ -13,7 +15,7 @@
 #
 #  index_taggings_on_tag_id_and_taggable  (tag_id,taggable_id,taggable_type) UNIQUE
 #
-require "test_helper"
+require 'test_helper'
 
 class TaggingTest < ActiveSupport::TestCase
   # test "the truth" do
