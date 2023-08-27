@@ -24,6 +24,7 @@ module Stories::Classifiable
   end
 
   def classify_topic_async
+    Stories::ClassifyJob.perform_later id
   end
 
   def find_topic

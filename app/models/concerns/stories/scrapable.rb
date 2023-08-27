@@ -30,9 +30,13 @@ module Stories::Scrapable
 
     if may_scrape?
       scrape!
-    elsif pending? && content.blank?
+    elsif drafted? && content.blank?
       drop!
     end
+  end
+
+  def scrape_metadata_async
+    Stories::ScrapeJob.perform_later id
   end
 
   def content
@@ -42,8 +46,5 @@ module Stories::Scrapable
       rescue StandardError
         ''
       end
-  end
-
-  def scrape_metadata_async
   end
 end

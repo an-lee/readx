@@ -79,6 +79,8 @@ class LlmMessage < ApplicationRecord
       parameters:
     )
 
+    raise Llm::APIError, r.dig('error', 'message') if r.present? && r['error'].present?
+
     update response: r
     complete! if may_complete?
   end

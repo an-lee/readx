@@ -70,6 +70,12 @@ gem 'langchainrb', require: 'langchain'
 gem 'pgvector'
 gem 'ruby-openai'
 
+# Simple, efficient background processing for Ruby
+gem 'sidekiq'
+
+# Scheduler / Cron for Sidekiq jobs
+gem 'sidekiq-cron'
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 

@@ -52,6 +52,8 @@ class Story < ApplicationRecord
 
   has_neighbors :embedding
 
+  after_commit :scrape_metadata_async, on: :create
+
   delegate :present?, to: :html, prefix: true
   delegate :present?, to: :summary, prefix: true
   delegate :positive?, to: :score, prefix: true
@@ -61,17 +63,22 @@ class Story < ApplicationRecord
     state :scraped
     state :analyzed
     state :classified
+    state :dropped
 
-    event :scrape, guards: :html_present? do
+    event :scrape, guards: :html_present?, after_commit: :analyze_content_async do
       transitions from: :drafted, to: :scraped
     end
 
-    event :analyze, guards: :summary_present? do
+    event :analyze, guards: :summary_present?, after_commit: :classify_topic_async do
       transitions from: :scraped, to: :analyzed
     end
 
-    event :classify, guards: :score_positive? do
+    event :classify, guards: :score_positive?, after_commit: :translate! do
       transitions from: :analyzed, to: :classified
+    end
+
+    event :drop do
+      transitions from: %i[scraped analyzed classified], to: :dropped
     end
   end
 

@@ -27,6 +27,8 @@ class Translation < ApplicationRecord
 
   has_many :llm_messages, as: :source, dependent: nil
 
+  after_commit :translate_async, on: :create
+
   scope :for_locale, ->(locale) { where(locale:) }
   scope :untranslated, -> { where(value: nil) }
   scope :translated, -> { where.not(value: nil) }
@@ -35,13 +37,17 @@ class Translation < ApplicationRecord
     @original_text ||= translatable.send(key)
   end
 
+  def translate_async
+    Translations::TranslateJob.perform_later id
+  end
+
   def translate!
     return value if value.present?
     return if original_text.blank?
 
     llm_message.chat if llm_message.pending?
     update!(
-      value: llm_message.response
+      value: llm_message.result
     )
   end
 

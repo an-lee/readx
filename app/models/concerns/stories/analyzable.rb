@@ -82,6 +82,10 @@ module Stories::Analyzable
     analyze! if may_analyze?
   end
 
+  def analyze_content_async
+    Stories::AnalyzeJob.perform_later id
+  end
+
   def analyze_message
     @analyze_message ||=
       analyze_messages.first || analyze_messages.create!(

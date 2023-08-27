@@ -1,0 +1,3 @@
+stories_collect_from_google_job:
+  cron: "*/30 * * * *" # every 30 minutes
+  class: "Stories::CollectFromGoogleJob"
