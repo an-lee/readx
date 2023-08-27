@@ -18,5 +18,14 @@ module Bitbull
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    #
+    config.action_view.image_loading = 'lazy'
+
+    config.i18n.available_locales = %i[en zh-CN]
+    config.i18n.default_locale = :'zh-CN'
+
+    config.generators do |g|
+      g.orm :active_record, primary_key_type: :uuid
+    end
   end
 end
