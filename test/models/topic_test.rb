@@ -6,6 +6,7 @@
 #
 #  id            :uuid             not null, primary key
 #  embedding     :vector
+#  published_at  :datetime
 #  slug          :string
 #  stories_count :integer          default(0), not null
 #  created_at    :datetime         not null

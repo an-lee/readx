@@ -6,6 +6,7 @@
 #
 #  id            :uuid             not null, primary key
 #  embedding     :vector
+#  published_at  :datetime
 #  slug          :string
 #  stories_count :integer          default(0), not null
 #  created_at    :datetime         not null
@@ -35,13 +36,12 @@ class Topic < ApplicationRecord
   validates :slug, presence: true, uniqueness: true
   validates :summary, presence: true
 
-  default_scope { includes(:source).order('stories.published_at DESC') }
   delegate :title, :summary, :content, \
            :title_text, :summary_text, :content_text, \
-           :url, :published_at, \
+           :url, \
            to: :source
 
-  scope :hot, -> { where(stories_count: 2...) }
+  scope :hot, -> { where(stories_count: 2...).includes(:source).order(published_at: :desc) }
 
   def related_topics
     @related_topics ||= Topic.where(id: neighbor_ids)
@@ -53,14 +53,16 @@ class Topic < ApplicationRecord
     return Rails.cache.read(neighbor_ids_cache_key) if Rails.cache.exist?(neighbor_ids_cache_key)
 
     ids = []
-    nearest_neighbors(:embedding, distance: :cosine).first(50).each do |neighbor|
-      break if neighbor.neighbor_distance > 0.1
-
-      ids << neighbor.id
+    neighbors.each do |neighbor|
+      ids << neighbor.id if neighbor.neighbor_distance < 0.1
     end
 
     Rails.cache.write(neighbor_ids_cache_key, ids, expires_in: 3.minutes)
     @neighbor_ids = ids
+  end
+
+  def neighbors(num = 50)
+    @neighbors ||= nearest_neighbors(:embedding, distance: :cosine).first(num)
   end
 
   def neighbor_ids_cache_key

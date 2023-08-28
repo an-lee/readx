@@ -4,13 +4,14 @@ module Stories::Classifiable
   extend ActiveSupport::Concern
 
   def classify_topic!
+    return if drafted? || dropped?
     return if topic.present?
     return if content.blank?
 
     embed_message.embed if embed_message.pending?
     update(embedding: embed_message.result) if embedding.blank?
 
-    update(topic: find_or_create_topic) if topic.blank?
+    update(topic: find_or_generate_topic) if topic.blank?
 
     classify! if may_classify?
   end
@@ -19,12 +20,12 @@ module Stories::Classifiable
     Stories::ClassifyJob.perform_later id
   end
 
-  def find_or_create_topic
-    return nearest_topic if nearest_topic.present? && nearest_topic.neighbor_distance < 0.1
-    return unless fact?
+  def find_or_generate_topic
+    return nearest_topic if nearest_topic.present? && nearest_topic.neighbor_distance < 0.15
 
     Topic.create!(
       embedding:,
+      published_at:,
       source: self
     )
   end
@@ -32,7 +33,11 @@ module Stories::Classifiable
   def nearest_topic
     return if embedding.blank?
 
-    @nearest_topic ||= Topic.nearest_neighbors(:embedding, embedding, distance: :cosine).first
+    @nearest_topic ||=
+      Topic
+      .where(
+        published_at: (published_at - 24.hours)...(published_at + 24.hours)
+      ).nearest_neighbors(:embedding, embedding, distance: :cosine).first
   end
 
   def embed_message

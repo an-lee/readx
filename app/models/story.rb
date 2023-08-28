@@ -97,7 +97,7 @@ class Story < ApplicationRecord
     return Rails.cache.read(neighbor_ids_cache_key) if Rails.cache.exist?(neighbor_ids_cache_key)
 
     ids = []
-    nearest_neighbors(:embedding, distance: :cosine).first(50).each do |neighbor|
+    neighbors.each do |neighbor|
       break if neighbor.neighbor_distance > 0.1
 
       ids << neighbor.id
@@ -105,6 +105,10 @@ class Story < ApplicationRecord
 
     Rails.cache.write(neighbor_ids_cache_key, ids, expires_in: 3.minutes)
     @neighbor_ids = ids
+  end
+
+  def neighbors(num = 50)
+    @neighbors ||= nearest_neighbors(:embedding, distance: :cosine).first(num)
   end
 
   def neighbor_ids_cache_key
