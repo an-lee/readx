@@ -69,7 +69,7 @@ class Translation < ApplicationRecord
     @llm_message ||= llm_messages.first || llm_messages.create!(
       llm_message_type: 'translate',
       context: TRANSLATE_CONTEXT,
-      prompt: llm_translate_prompt.format(locale:, text: original_text)
+      prompt: llm_translate_prompt.format(locale:, text: original_text.truncate(8_000))
     )
   end
 end

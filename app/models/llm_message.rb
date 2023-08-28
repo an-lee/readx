@@ -41,9 +41,13 @@ class LlmMessage < ApplicationRecord
   aasm column: :status do
     state :pending, initial: true
     state :completed
+    state :failed
 
     event :complete, guards: :response_present? do
       transitions from: :pending, to: :completed
+    end
+    event :fail do
+      transitions from: :pending, to: :failed
     end
   end
 

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= display_meta_tags site: 'ReadX', og: { title: 'ReadX',  image: image_url('bg.png')}, twitter: { card: 'summary', image: image_url('bg.png')}  %>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#f2f2f2" />
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="">
+    <main class="h-screen flex">
+      <div class="m-auto max-w-xl">
+        <%= form_with url: '/madmin/login', method: :post, class: "flex flex-col space-y-2" do |form| %>
+          <%= form.text_field :name, placeholder: "name", required: true, class: "rounded-lg" %>
+          <%= form.password_field :password, placeholder: "password", required: true, class: "rounded-lg" %>
+          <%= form.submit "Login", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </main>
+  </body>
+</html>
