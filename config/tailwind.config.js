@@ -10,7 +10,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Inter var", ...defaultTheme.fontFamily.sans],
+        sans: ["PingFang SC", "Inter var", ...defaultTheme.fontFamily.sans],
       },
     },
   },
@@ -21,4 +21,7 @@ module.exports = {
     require("@tailwindcss/container-queries"),
     require("daisyui"),
   ],
+  daisyui: {
+    themes: ["autumn"],
+  },
 };

@@ -1,14 +1,14 @@
 <div class="max-w-prose mx-auto">
   <div data-controller="infinite-scroll">
-    <%= turbo_frame_tag "topics" do %>
-      <% if @topics.blank? %>
+    <%= turbo_frame_tag "stories" do %>
+      <% if @stories.blank? %>
         <%= render 'components/empty' %>
       <% else %>
-        <div id="topics-list" class="divide-y">
-          <%= render partial: "topics/topic", collection: @topics %>
+        <div id="stories-list" class="divide-y">
+          <%= render partial: "stories/story", collection: @stories %>
         </div>
         <div data-infinite-scroll-target="scrollArea"></div>
-        <div id="topics-pagy">
+        <div id="stories-pagy">
           <%= render 'components/pagy', pagy: @pagy %>
         </div>
       <% end %>

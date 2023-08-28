@@ -26,21 +26,22 @@ export default class extends Controller {
         element.dataset.topicActiveValue = false;
       });
 
-    this.element.classList.add('active', 'border', 'rounded-lg', 'shadow-xl');
+    this.element.classList.add('active', 'border', 'sm:rounded-lg', 'shadow-xl', 'bg-white');
     this.element.classList.remove('cursor-pointer');
     this.linksTarget.classList.remove('hidden');
-    this.summaryTarget.classList.remove('line-clamp-3');
+    this.summaryTarget.classList.remove('sm:line-clamp-3', 'hidden', 'opacity-70');
   }
 
   inactive() {
     this.element.classList.remove(
       'active',
       'border',
-      'rounded-lg',
+      'sm:rounded-lg',
       'shadow-xl',
+      'bg-white',
     );
     this.element.classList.add('cursor-pointer');
     this.linksTarget.classList.add('hidden');
-    this.summaryTarget.classList.add('line-clamp-3');
+    this.summaryTarget.classList.add('sm:line-clamp-3', 'hidden', 'opacity-70');
   }
 }

@@ -11,7 +11,7 @@
       }, 
       class: "w-80 btn btn-primary btn-sm" %>
   <% else %>
-    <div class="opacity-50">
+    <div class="w-full flex justify">
       =.=
     </div>
   <% end %>

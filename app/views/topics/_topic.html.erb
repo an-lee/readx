@@ -3,9 +3,10 @@
   data-topic-active-value="false"
   data-action="click->topic#toggle" 
   id="<%= dom_id topic %>" 
-  class="p-4 rounded cursor-pointer mb-4">
-  <div class="text-lg mb-2">
-    <%= topic.title_in(current_locale) %>
+  class="p-4 cursor-pointer">
+
+  <div class="mb-2">
+    <%= link_to topic.title_in(current_locale), topic_path(topic), class: 'text-base hover:link hover:text-primary' %>
 
     <% if topic.published_at < 3.days.ago %>
       <span data-controller="time-format" 
@@ -19,15 +20,20 @@
       </span>
     <% end %>
   </div>
-  <div data-topic-target="summary" class="opacity-70 line-clamp-3">
+
+  <div 
+    data-topic-target="summary" 
+    class="opacity-70 text-sm/loose sm:line-clamp-3 hidden hover:opacity-100">
     <%= topic.summary_in(current_locale) %>
   </div>
 
-  <div data-topic-target="links" class="hidden mt-4">
-    <%= render partial: 'stories/story', collection: topic.stories, as: :story %>
+  <div data-topic-target="links" class="hidden mt-6">
+    <ul class="list-[square] list-inside">
+      <%= render partial: 'stories/link', collection: topic.stories, as: :story %>
+    </ul>
 
     <div class="flex justify-end">
-      <%= link_to 'topic', topic_path(topic), target: "_blank", class: "text-sm opacity-70 link" %>
+      <%= link_to t('.topic'), topic_path(topic), target: "_blank", class: "text-sm opacity-70 link capitalize" %>
     </div>
   </div>
 </div>

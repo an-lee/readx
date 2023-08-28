@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html data-theme="wireframe">
+<html data-theme="autumn">
   <head>
-    <title>Bitbull</title>
+    <title>ReadX</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,8 +11,9 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="@container/main mx-auto mt-28 px-5 flex">
+  <body class="font-sans">
+    <%= render "components/nav" %>
+    <main class="@container/main mx-auto sm:mt-4 flex bg-base-200/30 sm:bg-base-100">
       <%= yield %>
     </main>
   </body>

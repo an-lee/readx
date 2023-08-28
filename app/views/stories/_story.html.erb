@@ -1,5 +1,22 @@
-<div class="text-sm">
-  <span class="mr-1 opacity-70">-</span>
-  <%= link_to story.title_in(current_locale), story.url, target: "_blank", class: "" %>
-  <span class="text-xs opacity-70 ml-1"><%= story.domain_name %></span>
+<div id="<%= dom_id story %>" class="p-4 cursor-pointer">
+
+  <div class="mb-2">
+    <%= link_to story.title_in(current_locale), story_path(story), class: 'text-base hover:link hover:text-primary' %>
+
+    <% if story.published_at < 3.days.ago %>
+      <span data-controller="time-format" 
+            data-time-format-timestamp-value="<%= story.published_at.to_i %>" 
+        class="text-sm opacity-50">
+        <%= story.published_at %>
+      </span>
+    <% else %>
+      <span class="text-sm opacity-50">
+        <%= time_ago_in_words(story.published_at) %>
+      </span>
+    <% end %>
+  </div>
+
+  <div class="opacity-70 text-sm/loose sm:line-clamp-3 hidden hover:opacity-100">
+    <%= story.summary_in(current_locale) %>
+  </div>
 </div>
