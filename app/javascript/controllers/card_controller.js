@@ -31,9 +31,10 @@ export default class extends Controller {
       "border",
       "sm:rounded-lg",
       "shadow-xl",
-      "bg-white"
+      "bg-white",
+      "space-y-6"
     );
-    this.element.classList.remove("cursor-pointer");
+    this.element.classList.remove("cursor-pointer", "space-y-4");
     this.titleTarget.classList.add("text-primary");
     this.summaryTarget.classList.remove(
       "sm:line-clamp-3",
@@ -51,10 +52,11 @@ export default class extends Controller {
       "border",
       "sm:rounded-lg",
       "shadow-xl",
-      "bg-white"
+      "bg-white",
+      "space-y-6"
     );
+    this.element.classList.add("cursor-pointer", "space-y-4");
     this.titleTarget.classList.remove("text-primary");
-    this.element.classList.add("cursor-pointer");
     this.summaryTarget.classList.add("sm:line-clamp-3", "hidden", "opacity-70");
     if (this.hasLinksTarget) {
       this.linksTarget.classList.add("hidden");
