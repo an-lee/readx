@@ -68,4 +68,12 @@ class Topic < ApplicationRecord
   def neighbor_ids_cache_key
     "topic:#{id}:neighbors"
   end
+
+  def to_meta_tags
+    {
+      title: title_text,
+      description: summary_text,
+      keywords: tags.pluck(:name).join(',')
+    }
+  end
 end

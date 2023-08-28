@@ -161,6 +161,14 @@ class Story < ApplicationRecord
     "https://player.bilibili.com/player.html?bvid=#{bilibili_id}&autoplay=0"
   end
 
+  def to_meta_tags
+    {
+      title: title_text,
+      description: summary_text,
+      keywords: tags.pluck(:name).join(',')
+    }
+  end
+
   private
 
   def setup_default_attributes

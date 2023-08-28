@@ -26,15 +26,15 @@
     <div class="flex-1 items-center hidden sm:flex">
       <%= link_to t('.topics'), 
         root_path, 
-        class: "text-lg hover:font-bold hover:text-primary px-4 #{request.path == '/' || request.path.include?('topics') ? 'text-primary' : ''}" %>
+        class: "text-base hover:font-bold hover:text-primary px-4 #{request.path == '/' || request.path.include?('topics') ? 'text-primary' : ''}" %>
 
       <%= link_to t('.news'), 
         stories_path(type: :fact),
-        class: "text-lg hover:font-bold hover:text-primary px-4 #{request.params['type'] == 'fact' ? 'text-primary' : ''}" %>
+        class: "text-base hover:font-bold hover:text-primary px-4 #{request.params['type'] == 'fact' ? 'text-primary' : ''}" %>
 
       <%= link_to t('.opinions'), 
         stories_path(type: :opinion), 
-        class: "text-lg hover:font-bold hover:text-primary px-4 #{request.params['type'] == 'opinion' ? 'text-primary' : ''}" %>
+        class: "text-base hover:font-bold hover:text-primary px-4 #{request.params['type'] == 'opinion' ? 'text-primary' : ''}" %>
     </div>
   </div>
 </div>

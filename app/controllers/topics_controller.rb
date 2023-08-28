@@ -7,5 +7,7 @@ class TopicsController < ApplicationController
 
   def show
     @topic = Topic.friendly.find params[:id]
+
+    set_meta_tags @topic
   end
 end

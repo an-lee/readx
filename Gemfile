@@ -86,6 +86,9 @@ gem 'kramdown-parser-gfm'
 
 gem 'mixin_bot'
 
+# Search Engine Optimization (SEO) for Ruby on Rails applications.
+gem 'meta-tags'
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 

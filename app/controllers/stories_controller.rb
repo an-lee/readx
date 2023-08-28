@@ -20,5 +20,6 @@ class StoriesController < ApplicationController
 
   def show
     @story = Story.find(params[:id])
+    set_meta_tags @story
   end
 end
