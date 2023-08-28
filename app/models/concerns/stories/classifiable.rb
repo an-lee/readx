@@ -24,10 +24,8 @@ module Stories::Classifiable
     return unless fact?
 
     Topic.create!(
-      title:,
-      summary:,
       embedding:,
-      published_at:
+      source: self
     )
   end
 

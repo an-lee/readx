@@ -80,6 +80,10 @@ gem 'sidekiq-cron'
 gem 'pagy'
 gem 'pagy_cursor'
 
+# kramdown is a fast, pure Ruby Markdown superset converter, using a strict syntax definition and supporting several common extensions.
+gem 'kramdown'
+gem 'kramdown-parser-gfm'
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 

@@ -42,7 +42,7 @@ class Story < ApplicationRecord
   enumerize :sentiment, in: %i[positive neutral negative], predicates: true, scope: true
   enumerize :story_type, in: %i[fact opinion], predicates: true, scope: true
 
-  belongs_to :topic, optional: true
+  belongs_to :topic, optional: true, counter_cache: true
 
   has_many :llm_messages, as: :source, dependent: :destroy
   has_many :analyze_messages, -> { where(llm_message_type: 'analyze').order(updated_at: :desc) }, class_name: 'LlmMessage', as: :source, inverse_of: false, dependent: nil
@@ -85,6 +85,30 @@ class Story < ApplicationRecord
     event :drop do
       transitions from: %i[scraped analyzed classified], to: :dropped
     end
+  end
+
+  def related_stories
+    @related_stories ||= Story.where(id: neighbor_ids)
+  end
+
+  def neighbor_ids
+    return @neighbor_ids if @neighbor_ids.present?
+    return if embedding.blank?
+    return Rails.cache.read(neighbor_ids_cache_key) if Rails.cache.exist?(neighbor_ids_cache_key)
+
+    ids = []
+    nearest_neighbors(:embedding, distance: :cosine).first(50).each do |neighbor|
+      break if neighbor.neighbor_distance > 0.1
+
+      ids << neighbor.id
+    end
+
+    Rails.cache.write(neighbor_ids_cache_key, ids, expires_in: 3.minutes)
+    @neighbor_ids = ids
+  end
+
+  def neighbor_ids_cache_key
+    "story:#{id}:neighbors"
   end
 
   def domain_name

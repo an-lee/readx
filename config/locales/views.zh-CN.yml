@@ -1,6 +1,16 @@
 zh-CN:
   components:
     nav:
-      topics: 话题
-      news: 资讯
-      opinions: 观点
+      topics: 热门话题
+      news: 最新资讯
+      opinions: 市场观点
+  topics:
+    topic:
+      detail: 查看话题
+    show:
+      media_reports: 媒体报道
+      from: 来源
+      original_link: 原文链接
+  stories:
+    show:
+      related: 相关报道

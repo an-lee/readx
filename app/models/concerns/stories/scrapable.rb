@@ -17,7 +17,7 @@ module Stories::Scrapable
     page =
       begin
         MetaInspector.new(url, encoding: 'utf-8', connection_timeout: 10, read_timeout: 10, retries: 3)
-      rescue MetaInspector::TimeoutError
+      rescue MetaInspector::TimeoutError, MetaInspector::NonHtmlError
         doc = Scraper.api.scrape(url)
         MetaInspector.new(url, document: doc, encoding: 'utf-8')
       end
@@ -33,7 +33,7 @@ module Stories::Scrapable
     elsif drafted? && content.blank?
       drop!
     end
-  rescue ActiveRecord::RecordNotUnique, PG::UniqueViolation::ERROR
+  rescue ActiveRecord::RecordNotUnique
     destroy
   end
 

@@ -1,4 +1,4 @@
-<li class="text-sm text-second hover:text-primary">
-  <%= link_to story.title_in(current_locale), story.url, target: "_blank", class: "" %>
+<li class="text-sm text-second py-1.5">
+  <%= link_to story.title, story_path(story), target: "_blank", class: "hover:text-primary" %>
   <span class="text-xs opacity-70 ml-1"><%= story.domain_name %></span>
 </li>

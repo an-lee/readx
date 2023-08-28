@@ -2,7 +2,7 @@
 
 class TopicsController < ApplicationController
   def index
-    @pagy, @topics = pagy Topic.all.order(created_at: :desc)
+    @pagy, @topics = pagy Topic.hot.order(created_at: :desc)
   end
 
   def show

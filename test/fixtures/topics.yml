@@ -2,20 +2,18 @@
 #
 # Table name: topics
 #
-#  id           :uuid             not null, primary key
-#  content      :text
-#  embedding    :vector
-#  locale       :string           default("en"), not null
-#  published_at :datetime
-#  slug         :string
-#  summary      :text
-#  title        :string           not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id            :uuid             not null, primary key
+#  embedding     :vector
+#  slug          :string
+#  stories_count :integer          default(0), not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  source_id     :uuid             not null
 #
 # Indexes
 #
-#  index_topics_on_slug  (slug) UNIQUE
+#  index_topics_on_slug       (slug) UNIQUE
+#  index_topics_on_source_id  (source_id)
 #
 
 # This model initially had no columns defined. If you add columns to the

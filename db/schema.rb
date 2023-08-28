@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_27_145900) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_27_140159) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -81,16 +81,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_27_145900) do
   end
 
   create_table "topics", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "title", null: false
     t.string "slug"
-    t.text "summary"
-    t.text "content"
+    t.uuid "source_id", null: false
+    t.integer "stories_count", default: 0, null: false
     t.vector "embedding"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "locale", default: "en", null: false
-    t.datetime "published_at"
     t.index ["slug"], name: "index_topics_on_slug", unique: true
+    t.index ["source_id"], name: "index_topics_on_source_id"
   end
 
   create_table "translations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

@@ -1,11 +1,11 @@
 <div class="navbar bg-base-100 border-b" data-controller="nav" data-nav-path="<%= request.params['type'] %>">
-  <div class="w-full max-w-4xl mx-auto flex items-center">
-    <div class="flex-none mx-6">
+  <div class="w-full max-w-4xl mx-auto flex items-center relative">
+    <div class="flex-none mx-auto sm:mx-6">
       <%= link_to root_path, class: 'text-xl' do %>
         <span class="">Read</span><span class="font-bold text-primary">X</span>
       <% end %>
     </div>
-    <div class="flex-1 flex items-center">
+    <div class="flex-1 items-center hidden sm:flex">
       <%= link_to t('.topics'), 
         root_path, 
         class: "text-lg hover:font-bold hover:text-primary px-4 #{request.path == '/' || request.path.include?('topics') ? 'text-primary' : ''}" %>
@@ -18,7 +18,23 @@
         stories_path(type: :opinion), 
         class: "text-lg hover:font-bold hover:text-primary px-4 #{request.params['type'] == 'opinion' ? 'text-primary' : ''}" %>
     </div>
-    <div class="flex-none">
+    <div class="absolute right-0 sm:hidden">
+      <details class="dropdown dropdown-end">
+        <summary class="btn btn-square btn-ghost">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </summary>
+        <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box">
+          <li>
+            <%= link_to t('.topics'), root_path, class: "min-w-max" %>
+          </li>
+          <li>
+            <%= link_to t('.news'), stories_path(type: :fact), class: "min-w-max" %>
+          </li>
+          <li>
+            <%= link_to t('.opinions'), stories_path(type: :opinion), class: "min-w-max" %>
+          </li>
+        </ul>
+      </details>
     </div>
   </div>
 </div>

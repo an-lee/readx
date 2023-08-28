@@ -1,6 +1,16 @@
 en:
   components:
     nav:
-      topics: Topics
+      topics: Trending
       news: News
       opinions: Opinions
+  topics:
+    topic:
+      detail: Topic Detail
+    show:
+      media_reports: Media Reports
+      from: From
+      original_link: Original Link
+  stories:
+    show:
+      related: Related

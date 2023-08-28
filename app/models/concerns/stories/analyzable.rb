@@ -84,7 +84,7 @@ module Stories::Analyzable
 
     if score <= 5 && may_drop?
       drop!
-    elsif may_classify?
+    elsif may_analyze?
       analyze!
     end
   end

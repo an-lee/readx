@@ -14,15 +14,27 @@ module Stories::Translatable
     end
   end
 
-  def summary_in(locale = 'zh-CN')
-    translations.find_or_create_by(key: :summary, locale:)&.value || summary
+  def summary
+    if I18n.locale == locale
+      super
+    else
+      translations.find_or_create_by(key: :summary, locale: I18n.locale)&.value || super
+    end
   end
 
-  def content_in(locale = 'zh-CN')
-    translations.find_or_create_by(key: :content, locale:)&.value || content
+  def content
+    if I18n.locale == locale
+      super
+    else
+      translations.find_or_create_by(key: :content, locale: I18n.locale)&.value || super
+    end
   end
 
-  def title_in(locale = 'zh-CN')
-    translations.find_or_create_by(key: :title, locale:)&.value || title
+  def title
+    if I18n.locale == locale
+      super
+    else
+      translations.find_or_create_by(key: :title, locale: I18n.locale)&.value || super
+    end
   end
 end
