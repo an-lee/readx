@@ -1,7 +1,7 @@
 <div 
-  data-controller="topic" 
-  data-topic-active-value="false"
-  data-action="click->topic#toggle" 
+  data-controller="card" 
+  data-card-active-value="false"
+  data-action="click->card#toggle" 
   id="<%= dom_id topic %>" 
   class="p-4 cursor-pointer">
 
@@ -22,12 +22,12 @@
   </div>
 
   <div 
-    data-topic-target="summary" 
+    data-card-target="summary" 
     class="opacity-70 text-sm/loose sm:line-clamp-3 hidden hover:opacity-100">
     <%= topic.summary_in(current_locale) %>
   </div>
 
-  <div data-topic-target="links" class="hidden mt-6">
+  <div data-card-target="links" class="hidden mt-6">
     <ul class="list-[square] list-inside">
       <%= render partial: 'stories/link', collection: topic.stories, as: :story %>
     </ul>

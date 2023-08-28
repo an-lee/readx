@@ -1,4 +1,9 @@
-<div id="<%= dom_id story %>" class="p-4 cursor-pointer">
+<div 
+  data-controller="card" 
+  data-card-active-value="false"
+  data-action="click->card#toggle" 
+  id="<%= dom_id story %>" 
+  class="p-4 cursor-pointer">
 
   <div class="mb-2">
     <%= link_to story.title_in(current_locale), story_path(story), class: 'text-base hover:link hover:text-primary' %>
@@ -16,7 +21,14 @@
     <% end %>
   </div>
 
-  <div class="opacity-70 text-sm/loose sm:line-clamp-3 hidden hover:opacity-100">
+  <div 
+    data-card-target="summary" 
+    class="opacity-70 text-sm/loose sm:line-clamp-3 hidden hover:opacity-100">
     <%= story.summary_in(current_locale) %>
+  </div>
+  <div data-card-target="links" class="hidden mt-4">
+    <div class="flex justify-end">
+      <span class="text-xs opacity-70 ml-1"><%= story.domain_name %></span>
+    </div>
   </div>
 </div>
