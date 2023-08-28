@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: bitbull_development
+  database: readx_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -57,7 +57,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: bitbull_test
+  database: readx_test
   username: postgres
   password: postgres
   host: localhost
@@ -85,6 +85,6 @@ test:
 #
 production:
   <<: *default
-  database: bitbull_production
-  username: bitbull
-  password: <%= ENV["BITBULL_DATABASE_PASSWORD"] %>
+  database: readx_production
+  username: readx
+  password: <%= ENV["READX_DATABASE_PASSWORD"] %>
