@@ -3,10 +3,10 @@
   data-card-active-value="false"
   data-action="click->card#toggle" 
   id="<%= dom_id topic %>" 
-  class="p-4 cursor-pointer">
+  class="p-5 cursor-pointer space-y-6">
 
-  <div class="mb-2">
-    <span class="relative text-base sm:hover:link sm:hover:text-primary">
+  <div class="">
+    <span data-card-target="title" class="relative text-base sm:hover:link sm:hover:text-primary">
       <%= topic.title_text %>
       <%= link_to '', topic_path(topic), 
         data: {
@@ -15,7 +15,9 @@
         class: 'absolute inset-0 w-full hidden sm:block' %>
     </span>
 
-    <%= render 'components/datetime', datetime: topic.published_at %>
+    <span class="text-xs opacity-50">
+      <%= render 'components/datetime', datetime: topic.published_at %>
+    </span>
   </div>
 
   <div 

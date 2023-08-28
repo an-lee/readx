@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static values = { active: Boolean };
-  static targets = ["links", "summary"];
+  static targets = ["title", "links", "summary"];
 
   activeValueChanged(value) {
     if (value === undefined) return;
@@ -34,6 +34,7 @@ export default class extends Controller {
       "bg-white"
     );
     this.element.classList.remove("cursor-pointer");
+    this.titleTarget.classList.add("text-primary");
     this.summaryTarget.classList.remove(
       "sm:line-clamp-3",
       "hidden",
@@ -52,6 +53,7 @@ export default class extends Controller {
       "shadow-xl",
       "bg-white"
     );
+    this.titleTarget.classList.remove("text-primary");
     this.element.classList.add("cursor-pointer");
     this.summaryTarget.classList.add("sm:line-clamp-3", "hidden", "opacity-70");
     if (this.hasLinksTarget) {

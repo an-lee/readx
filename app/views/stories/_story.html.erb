@@ -3,27 +3,22 @@
   data-card-active-value="false"
   data-action="click->card#toggle" 
   id="<%= dom_id story %>" 
-  class="p-4 cursor-pointer">
+  class="p-5 cursor-pointer space-y-6">
 
-  <div class="mb-2">
-    <%= link_to story.title_text, 
-      story_path(story), 
-      data: {
-        turbo_frame: '_top',
-      },
-      class: 'text-base hover:link hover:text-primary' %>
+  <div class="">
+    <span data-card-target="title" class="relative text-base sm:hover:link sm:hover:text-primary">
+      <%= story.title_text %>
+      <%= link_to '', 
+        story_path(story), 
+        data: {
+          turbo_frame: '_top',
+        },
+        class: 'absolute inset-0 w-full hidden sm:block' %>
+    </span>
 
-    <% if story.published_at < 3.days.ago %>
-      <span data-controller="time-format" 
-            data-time-format-timestamp-value="<%= story.published_at.to_i %>" 
-        class="text-sm opacity-50">
-        <%= story.published_at %>
-      </span>
-    <% else %>
-      <span class="text-sm opacity-50">
-        <%= time_ago_in_words(story.published_at) %>
-      </span>
-    <% end %>
+    <span class="text-xs opacity-50">
+      <%= render 'components/datetime', datetime: story.published_at %>
+    </span>
   </div>
 
   <div 
@@ -31,7 +26,8 @@
     class="opacity-70 text-sm/loose sm:line-clamp-3 hidden hover:opacity-100">
     <%= story.summary_text %>
   </div>
-  <div data-card-target="links" class="hidden mt-4">
+
+  <div data-card-target="links" class="hidden">
     <div class="flex justify-end">
       <span class="text-xs opacity-70 ml-1"><%= story.domain_name %></span>
     </div>

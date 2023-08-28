@@ -9,8 +9,11 @@ en:
       detail: Topic Detail
     show:
       media_reports: Media Reports
+      topic_tracing: Topic Tracing
       from: From
       original_link: Original Link
   stories:
     show:
       related: Related
+      from: From
+      original_link: Original Link

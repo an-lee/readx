@@ -1,11 +1,10 @@
 <% if datetime < 3.days.ago %>
   <span data-controller="time-format" 
-        data-time-format-timestamp-value="<%= datetime.to_i %>" 
-    class="text-sm opacity-50">
+        data-time-format-timestamp-value="<%= datetime.to_i %>">
     <%= datetime %>
   </span>
 <% else %>
-  <span class="text-sm opacity-50">
+  <span>
     <%= time_ago_in_words(datetime) %>
   </span>
 <% end %>
