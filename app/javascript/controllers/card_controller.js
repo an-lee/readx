@@ -41,6 +41,9 @@ export default class extends Controller {
       "hidden",
       "opacity-70"
     );
+
+    this.element.scrollIntoView({ behavior: "smooth", block: "center" });
+
     if (this.hasLinksTarget) {
       this.linksTarget.classList.remove("hidden");
     }

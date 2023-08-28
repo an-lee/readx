@@ -7,13 +7,13 @@
         </summary>
         <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box">
           <li>
-            <%= link_to t('.topics'), root_path, class: "min-w-max" %>
+            <%= link_to t('.topics'), root_path, class: "whitespace-nowrap" %>
           </li>
           <li>
-            <%= link_to t('.news'), stories_path(type: :fact), class: "min-w-max" %>
+            <%= link_to t('.news'), stories_path(type: :fact), class: "whitespace-nowrap" %>
           </li>
           <li>
-            <%= link_to t('.opinions'), stories_path(type: :opinion), class: "min-w-max" %>
+            <%= link_to t('.opinions'), stories_path(type: :opinion), class: "whitespace-nowrap" %>
           </li>
         </ul>
       </details>
