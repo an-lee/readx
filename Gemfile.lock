@@ -410,6 +410,7 @@ DEPENDENCIES
   aasm
   after_commit_everywhere
   annotate
+  bcrypt
   bootsnap
   capybara
   debug

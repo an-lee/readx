@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
-require 'sidekiq/web'
-require 'sidekiq/cron/web'
-
 Rails.application.routes.draw do
-  mount Sidekiq::Web, at: 'sidekiq'
+  draw :admin
 
   get 'service-worker.js', to: 'service_worker#service_worker'
   get 'manifest.json', to: 'service_worker#manifest'
