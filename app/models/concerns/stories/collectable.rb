@@ -4,7 +4,7 @@ module Stories::Collectable
   extend ActiveSupport::Concern
 
   class_methods do
-    def collect_from_google(type: 'news', time_period: nil)
+    def collect_from_google(type: 'news', time_period: nil, page: 1)
       news_type =
         case type
         when 'news'
@@ -13,7 +13,7 @@ module Stories::Collectable
           'blogs'
         end
 
-      r = Valueserp.api.search('crypto', time_period:, news_type:)
+      r = Valueserp.api.search('crypto', time_period:, news_type:, page:)
 
       r['news_results'].each do |result|
         result.delete('thumbnail')

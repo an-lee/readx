@@ -20,8 +20,14 @@
 #
 class Translation < ApplicationRecord
   TRANSLATE_CONTEXT = <<~CONTEXT
-    You are a translator at a cryptocurrency news website. You are responsible for translating the material to {locale} from any other languages. Make it clean, concise and easy to understand. Return the translated content directly, no other words are needed. If material does not end up with a period, don't add it in the translation. It maybe a title.
+    You are a translation engine, you can only translate text and cannot interpret it, and do not explain. \
+    If the text is a long article. It may contain some irrevelant sentences/paragraph, like advertisement, author's introduction, etc. You can ignore them and only translate the key sentences/paragraphs.
   CONTEXT
+  TRANSLATE_PROMPT_TEMPLATE = <<~PROMPT
+    Translate the text to {locale}, please do not explain any sentences, just translate or leave them as they are.:
+
+    {text}
+  PROMPT
 
   belongs_to :translatable, polymorphic: true
 
@@ -51,19 +57,19 @@ class Translation < ApplicationRecord
     )
   end
 
-  def llm_translate_context
-    @llm_translate_context ||=
+  def llm_translate_prompt
+    @llm_translate_prompt ||=
       Langchain::Prompt::PromptTemplate.new(
-        template: TRANSLATE_CONTEXT,
-        input_variables: %w[locale]
+        template: TRANSLATE_PROMPT_TEMPLATE,
+        input_variables: %w[locale text]
       )
   end
 
   def llm_message
     @llm_message ||= llm_messages.first || llm_messages.create!(
       llm_message_type: 'translate',
-      context: llm_translate_context.format(locale:),
-      prompt: original_text
+      context: TRANSLATE_CONTEXT,
+      prompt: llm_translate_prompt.format(locale:, text: original_text)
     )
   end
 end

@@ -27,11 +27,11 @@ module Stories::Analyzable
         enum: %w[positive negative neutral],
         description: "Predict how the crypto market will react to the article from an analyst's perspective. The sentiment should be one of the following: positive, negative, neutral."
       },
-      tags: {
+      cryptocurrencies: {
         type: 'array',
         items: {
           type: 'string',
-          description: 'Extract the most important, relevant and meaningful tags from the article. Tags should be cryptocurrency symbols(BTC, ETH, etc), cryptocurrency topic(like De-Fi), key person, organizations, etc. Tags should be sorted by importance. Tags should be distinct as entities, not words. Use the short and concise form of the tag, for example, use "BTC" instead of "Bitcoin", use "De-Fi" instead of "Decentralized Finance". The number of tags should be between 1 and 3.'
+          description: 'Always use short symbols instead of full names. For example, use BTC instead of Bitcoin, use ETH instead of Ethereum. If you are not sure the short symbol of a cryptocurrency, ignore it. Do not contain any other characters. For example, if it contains $BTC, BTC/USD, use BTC only.'
         }
       },
       locale: {
@@ -39,13 +39,13 @@ module Stories::Analyzable
         description: 'Language of the article, use ISO 639-1 code'
       }
     },
-    required: %w[locale summary sentiment tags],
+    required: %w[locale summary sentiment cryptocurrencies],
     additionalProperties: false
   }.freeze
 
   ANALYZE_CONTEXT = <<~CONTEXT
     You are a senrior editor and analyst at a cryptocurrency news website. \
-    You are responsible for analyzing the news articles and extract the key information from the them. Rewrite them in a concise and easy to understand way if necessary. The key information includes: title, summary, type, score, sentiment, tags and locale.
+    You are responsible for analyzing the news articles and extract the key information from the them. Rewrite them in a concise and easy to understand way if necessary. The key information includes: title, summary, type, score, sentiment, cryptocurrencies and locale.
   CONTEXT
 
   ANALYZE_PROMPT_TEMPLATE = <<~PROMPT
@@ -77,9 +77,9 @@ module Stories::Analyzable
 
     update(**params)
 
-    json_response['tags']&.each do |tag_name|
-      tag = Tag.find_or_create_by(name: tag_name.upcase)
-      taggings.find_or_create_by(tag:)
+    json_response['cryptocurrencies']&.each do |tag_name|
+      tag = Tag.find_by(name: tag_name)
+      taggings.find_or_create_by(tag:) if tag.present?
     end
 
     if score <= 5 && may_drop?

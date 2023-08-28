@@ -57,7 +57,7 @@ class Story < ApplicationRecord
 
   before_validation :setup_default_attributes
 
-  after_commit :scrape_metadata_async, on: :create
+  # after_commit :scrape_metadata_async, on: :create
 
   delegate :present?, to: :html, prefix: true
   delegate :present?, to: :summary, prefix: true

@@ -84,6 +84,8 @@ gem 'pagy_cursor'
 gem 'kramdown'
 gem 'kramdown-parser-gfm'
 
+gem 'mixin_bot'
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 

@@ -53,9 +53,9 @@ class LlmMessage < ApplicationRecord
     @result ||=
       case llm_message_type
       when 'analyze', 'translate'
-        response.dig('choices', 0, 'message', 'content')
+        response&.dig('choices', 0, 'message', 'content')
       when 'embed'
-        response.dig('data', 0, 'embedding')
+        response&.dig('data', 0, 'embedding')
       end
   end
 

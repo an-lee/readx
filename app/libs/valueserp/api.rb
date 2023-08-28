@@ -35,7 +35,8 @@ module Valueserp
         google_domain: 'google.com',
         gl: 'us',
         sort_by: 'date',
-        num: 100
+        num: 100,
+        page: 1
       }
 
       conn.get('search', default_params.merge(params).compact).body
