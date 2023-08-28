@@ -6,7 +6,7 @@
   class="p-4 cursor-pointer">
 
   <div class="mb-2">
-    <%= link_to story.title, 
+    <%= link_to story.title_text, 
       story_path(story), 
       data: {
         turbo_frame: '_top',
@@ -29,7 +29,7 @@
   <div 
     data-card-target="summary" 
     class="opacity-70 text-sm/loose sm:line-clamp-3 hidden hover:opacity-100">
-    <%= story.summary %>
+    <%= story.summary_text %>
   </div>
   <div data-card-target="links" class="hidden mt-4">
     <div class="flex justify-end">

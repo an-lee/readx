@@ -36,7 +36,10 @@ class Topic < ApplicationRecord
   validates :summary, presence: true
 
   default_scope { includes(:source).order('stories.published_at DESC') }
-  delegate :title, :summary, :content, :url, :published_at, to: :source
+  delegate :title, :summary, :content, \
+           :title_text, :summary_text, :content_text, \
+           :url, :published_at, \
+           to: :source
 
   scope :hot, -> { where(stories_count: 2...) }
 

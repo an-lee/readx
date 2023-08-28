@@ -14,30 +14,15 @@ module Stories::Translatable
     end
   end
 
-  def summary
-    @summary ||=
-      if I18n.locale == locale
-        super
-      else
-        translations.find_or_create_by(key: :summary, locale: I18n.locale)&.value || super
+  included do
+    %i[title summary content].each do |attr_name|
+      define_method "#{attr_name}_text" do
+        if I18n.locale == locale
+          send attr_name
+        else
+          translations.find_or_create_by(key: attr_name, locale: I18n.locale)&.value || send(attr_name)
+        end
       end
-  end
-
-  def content
-    @content ||=
-      if I18n.locale == locale
-        super
-      else
-        translations.find_or_create_by(key: :content, locale: I18n.locale)&.value || super
-      end
-  end
-
-  def title
-    @title ||=
-      if I18n.locale == locale
-        super
-      else
-        translations.find_or_create_by(key: :title, locale: I18n.locale)&.value&.gsub(/。\Z/, '') || super
-      end
+    end
   end
 end
