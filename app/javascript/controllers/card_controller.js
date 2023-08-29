@@ -36,6 +36,7 @@ export default class extends Controller {
     );
     this.element.classList.remove("cursor-pointer", "space-y-4");
     this.titleTarget.classList.add("text-primary");
+    this.titleTarget.querySelector('a')?.classList.remove("hidden");
     this.summaryTarget.classList.remove(
       "sm:line-clamp-3",
       "hidden",
@@ -60,6 +61,7 @@ export default class extends Controller {
     );
     this.element.classList.add("cursor-pointer", "space-y-4");
     this.titleTarget.classList.remove("text-primary");
+    this.titleTarget.querySelector('a')?.classList.add("hidden");
     this.summaryTarget.classList.add("sm:line-clamp-3", "hidden", "opacity-70");
     if (this.hasLinksTarget) {
       this.linksTarget.classList.add("hidden");

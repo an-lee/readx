@@ -75,7 +75,7 @@ module Stories::Analyzable
       story_type: json_response['type']
     }.compact_blank
 
-    update(**params)
+    update(**params) if params.present?
 
     json_response['cryptocurrencies']&.each do |tag_name|
       tag = Tag.find_by(name: tag_name)

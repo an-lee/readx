@@ -1,11 +1,9 @@
-<% cache [story, current_locale] do %>
-  <li class="text-sm text-second py-1">
-    <%= link_to story.title_text, 
-      story_path(story), 
-      data: {
-        controller: 'prefetch'
-      },
-      class: "hover:text-primary" %>
-    <span class="text-xs opacity-70 ml-1"><%= story.domain_name %></span>
-  </li>
-<% end %>
+<li class="text-sm text-second py-1">
+  <%= link_to story.title_text, 
+    story_path(story), 
+    data: {
+      controller: 'prefetch'
+    },
+    class: "hover:text-primary" %>
+  <span class="text-xs opacity-70 ml-1"><%= story.domain_name %></span>
+</li>
