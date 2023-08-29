@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 class Ahoy::Store < Ahoy::DatabaseStore
+  def track_visit(data)
+    data[:ip] = request.headers['Fly-Client-IP'] || request.remote_ip
+    data[:region] = request.headers['Fly-Region']
+    super(data)
+  end
 end
 
 # set to true for JavaScript tracking
