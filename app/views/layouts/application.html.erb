@@ -20,5 +20,20 @@
     </main>
 
     <%= turbo_frame_tag 'modal' %>
+
+    <template id="loading-template">
+      <div data-controller="loading" class="modal modal-middle loading-modal z-50">
+        <div class="">
+          <div class="mb-4 text-center">
+            <div class="loading loading-infinity loading-lg text-primary"></div>
+          </div>
+          <div data-loading-target="cancelButton" class="hidden">
+            <button data-action="loading#hide" class="btn btn-sm btn-primary rounded-full">
+              <%= t('cancel') %>
+            </button>
+          </div>
+        </div>
+      </div>
+    </template>
   </body>
 </html>
