@@ -18,5 +18,7 @@
     <main class="@container/main mx-auto sm:mt-4 flex bg-base-200/30 sm:bg-base-100 mb-16">
       <%= yield %>
     </main>
+
+    <%= turbo_frame_tag 'modal' %>
   </body>
 </html>

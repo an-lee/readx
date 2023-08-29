@@ -7,10 +7,10 @@
         </div>
         <div class="text-right text-primary">
           <div class="font-serif">
-            <%= Time.current.strftime('%Y.%m.%d') %>
+            <%= l Time.current, format: '%Y.%m.%d' %>
           </div>
           <div class="font-serif">
-            <%= Time.current.strftime('%A') %>
+            <%= l(Time.current, format: '%A') %>
           </div>
         </div>
       </div>

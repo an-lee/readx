@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "daisyui": "^3.6.3"
+    "daisyui": "^3.6.3",
+    "tailwind-scrollbar-hide": "^1.1.7"
   }
 }

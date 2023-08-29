@@ -8,14 +8,22 @@ en:
   topics:
     topic:
       detail: Topic Detail
+    index:
+      trending: Trending Topics
     show:
       media_reports: Media Reports
       topic_tracing: Topic Tracing
       from: From
       original_link: Original Link
   stories:
+    index:
+      news: News
+      opinions: Opinions
     show:
       related: Related
+      from: From
+      original_link: Original Link
+    content:
       from: From
       original_link: Original Link
   daily:

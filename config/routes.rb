@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   get 'daily', to: 'daily#index'
 
   resources :topics, only: %i[index show]
-  resources :stories, only: %i[index show]
+  resources :stories, only: %i[index show] do
+    get :content, to: 'stories#content'
+  end
 
   # Defines the root path route ("/")
   root 'topics#index'

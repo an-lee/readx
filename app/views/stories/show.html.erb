@@ -13,7 +13,7 @@
 
   <div class="prose">
     <%= @story.summary_text %>
-    <%# <%= Kramdown::Document.new(@story.content_text, input: 'GFM').to_html.html_safe %>
+    <%= render 'stories/full_content_button', story: @story if @story.content_text.length > 200 %>
   </div>
 
   <% if @story.related_stories.present? %>

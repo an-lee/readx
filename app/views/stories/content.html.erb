@@ -1,0 +1,27 @@
+<%= turbo_frame_tag 'modal' do %>
+  <!-- Open the modal using ID.showModal() method -->
+  <dialog data-controller="modal" id="<%= dom_id @story %>_modal" class="modal modal-bottom sm:modal-middle">
+    <form method="dialog" class="modal-box !pt-0 scrollbar-hide bg-white relative">
+      <div class="flex justify-between py-4 border-b mb-4 sticky top-0 bg-white">
+        <div class="text-sm">
+          <%= t('.from') %>:
+          <span class="ml-1 font-mono"><%= @story.domain_name %></span>
+        </div>
+        <%= link_to t('.original_link'), 
+          @story.url, 
+          target: '_blank',
+          class: 'link text-sm opacity-70' %>
+      </div>
+
+      <h3 class="text-lg mb-4">
+        <%= @story.title_text %>
+      </h3>
+      <div class="prose mb-16">
+        <%= Kramdown::Document.new(@story.content_text, input: 'GFM').to_html.html_safe %>
+      </div>
+    </form>
+    <form method="dialog" class="modal-backdrop">
+      <button>close</button>
+    </form>
+  </dialog>
+<% end %>

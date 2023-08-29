@@ -7,5 +7,7 @@ class DailyController < ApplicationController
       .where(published_at: Time.zone.yesterday.all_day)
       .order(stories_count: :desc)
       .limit(10)
+
+    @page_title = t('.daily_topics')
   end
 end

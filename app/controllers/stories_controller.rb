@@ -16,10 +16,20 @@ class StoriesController < ApplicationController
       end
 
     @pagy, @stories = pagy stories
+    @page_title =
+      if type == 'opinion'
+        t('.opinions')
+      else
+        t('.news')
+      end
   end
 
   def show
     @story = Story.find(params[:id])
     set_meta_tags @story
+  end
+
+  def content
+    @story = Story.find(params[:story_id])
   end
 end

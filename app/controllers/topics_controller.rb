@@ -3,6 +3,8 @@
 class TopicsController < ApplicationController
   def index
     @pagy, @topics = pagy Topic.hot.order(created_at: :desc)
+
+    @page_title = t('.trending')
   end
 
   def show
