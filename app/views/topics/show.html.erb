@@ -13,7 +13,7 @@
 
   <div class="prose">
     <%= @topic.summary_text %>
-    <%= render 'stories/full_content_button', story: @topic.source if @topic.content_text.length > 200 %>
+    <%= render 'stories/full_content_button', story: @topic.source if @topic.content_text.length > 300 %>
   </div>
 
   <div class="">
@@ -37,9 +37,9 @@
   <% end %>
 
   <div class="flex justify-between pt-4 border-t">
-    <div class="text-sm">
-      <%= t('.from') %>:
-      <span class="ml-1 font-mono"><%= @topic.source.domain_name %></span>
+    <div class="text-sm ml-1 font-serif">
+      <span class=""><%= t('.from') %>:</span>
+      <span class=""><%= @topic.source.domain_name %></span>
     </div>
     <%= link_to t('.original_link'), 
       @topic.url, 
