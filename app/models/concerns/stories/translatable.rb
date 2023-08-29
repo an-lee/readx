@@ -6,7 +6,7 @@ module Stories::Translatable
   def translate_async(lang = 'zh-CN')
     return if locale == lang
 
-    %i[title content summary].each do |attr|
+    %i[title summary].each do |attr|
       translations.find_or_create_by!(
         key: attr,
         locale: lang
