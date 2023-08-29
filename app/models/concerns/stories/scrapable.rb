@@ -14,13 +14,17 @@ module Stories::Scrapable
     return if video?
     return if html.present?
 
-    page =
-      begin
-        MetaInspector.new(url, encoding: 'utf-8', connection_timeout: 10, read_timeout: 10, retries: 3)
-      rescue MetaInspector::TimeoutError, MetaInspector::NonHtmlError
-        doc = Scraper.api.scrape(url)
-        MetaInspector.new(url, document: doc, encoding: 'utf-8')
-      end
+    # page =
+    #   begin
+    #     MetaInspector.new(url, encoding: 'utf-8', connection_timeout: 10, read_timeout: 10, retries: 3)
+    #   rescue MetaInspector::TimeoutError, MetaInspector::NonHtmlError
+    #     doc = Scraper.api.scrape(url)
+    #     MetaInspector.new(url, document: doc, encoding: 'utf-8')
+    #   end
+
+    # use scraper to scrape
+    doc = Scraper.api.scrape(url)
+    page = MetaInspector.new(url, document: doc, encoding: 'utf-8')
 
     update(
       url: page.url,
