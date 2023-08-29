@@ -1,6 +1,8 @@
-<li class="text-sm text-second py-1.5">
-  <span class="text-xs opacity-70 mr-1">
-    <%= render 'components/datetime', datetime: topic.published_at %>
-  </span>
-  <%= link_to topic.title_text, topic_path(topic), target: "_blank", class: "hover:text-primary" %>
-</li>
+<% cache [topic, current_locale] do %>
+  <li class="text-sm text-second py-1.5">
+    <span class="text-xs opacity-70 mr-1">
+      <%= render 'components/datetime', datetime: topic.published_at %>
+    </span>
+    <%= link_to topic.title_text, topic_path(topic), target: "_blank", class: "hover:text-primary" %>
+  </li>
+<% end %>

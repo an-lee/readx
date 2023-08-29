@@ -20,10 +20,10 @@ module Readx
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
-    # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     #
     config.action_view.image_loading = 'lazy'
+    config.time_zone = 'Asia/Hong_Kong'
 
     config.i18n.available_locales = %i[en zh-CN]
     config.i18n.default_locale = :'zh-CN'
