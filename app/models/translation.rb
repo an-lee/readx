@@ -29,7 +29,7 @@ class Translation < ApplicationRecord
     {text}
   PROMPT
 
-  belongs_to :translatable, polymorphic: true
+  belongs_to :translatable, polymorphic: true, touch: true
 
   has_many :llm_messages, as: :source, dependent: nil
 

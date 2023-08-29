@@ -42,7 +42,7 @@ class Story < ApplicationRecord
   enumerize :sentiment, in: %i[positive neutral negative], predicates: true, scope: true
   enumerize :story_type, in: %i[fact opinion], predicates: true, scope: true
 
-  belongs_to :topic, optional: true, counter_cache: true
+  belongs_to :topic, optional: true, counter_cache: true, touch: true
 
   has_many :llm_messages, as: :source, dependent: :destroy
   has_many :analyze_messages, -> { where(llm_message_type: 'analyze').order(updated_at: :desc) }, class_name: 'LlmMessage', as: :source, inverse_of: false, dependent: nil
