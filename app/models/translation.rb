@@ -55,6 +55,8 @@ class Translation < ApplicationRecord
     update!(
       value: llm_message.result
     )
+
+    translatable.translate! if translatable.is_a?(Story) && translatable.may_translate?
   end
 
   def llm_translate_prompt

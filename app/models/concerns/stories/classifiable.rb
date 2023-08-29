@@ -7,6 +7,7 @@ module Stories::Classifiable
     return if drafted? || dropped?
     return if topic.present?
     return if content.blank?
+    return unless score_positive?
 
     embed_message.embed if embed_message.pending?
     update(embedding: embed_message.result) if embedding.blank?

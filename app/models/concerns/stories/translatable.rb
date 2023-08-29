@@ -3,7 +3,7 @@
 module Stories::Translatable
   extend ActiveSupport::Concern
 
-  def translate!(lang = 'zh-CN')
+  def translate_async(lang = 'zh-CN')
     return if locale == lang
 
     %i[title content summary].each do |attr|
@@ -11,6 +11,12 @@ module Stories::Translatable
         key: attr,
         locale: lang
       )
+    end
+  end
+
+  def all_translated?
+    %i[title content summary].all? do |attr|
+      translations.translated.exists?(key: attr)
     end
   end
 

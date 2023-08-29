@@ -67,6 +67,7 @@ class Story < ApplicationRecord
     state :drafted, initial: true
     state :scraped
     state :analyzed
+    state :translated
     state :classified
     state :dropped
 
@@ -74,12 +75,17 @@ class Story < ApplicationRecord
       transitions from: :drafted, to: :scraped
     end
 
-    event :analyze, guards: :summary_present?, after_commit: :classify_topic_async do
+    event :analyze, guards: :summary_present?, after_commit: :translate_async do
       transitions from: :scraped, to: :analyzed
     end
 
-    event :classify, guards: :score_positive?, after_commit: :translate! do
+    event :translate, guards: :all_translated?, after_commit: :classify_topic_async do
+      transitions from: :analyzed, to: :translated
+    end
+
+    event :classify, guards: :score_positive? do
       transitions from: :analyzed, to: :classified
+      transitions from: :translated, to: :classified
     end
 
     event :drop do
