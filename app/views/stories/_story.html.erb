@@ -11,7 +11,8 @@
       <%= link_to '', 
         story_path(story), 
         data: {
-          turbo_frame: '_top',
+          controller: 'prefetch',
+          turbo_frame: '_top'
         },
         class: 'absolute inset-0 w-full hidden sm:block' %>
     </span>

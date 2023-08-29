@@ -10,6 +10,7 @@
       <%= topic.title_text %>
       <%= link_to '', topic_path(topic), 
         data: {
+          controller: 'prefetch',
           turbo_frame: '_top',
         },
         class: 'absolute inset-0 w-full hidden sm:block' %>
@@ -35,7 +36,8 @@
       <%= link_to t('.detail'), 
         topic_path(topic), 
         data: {
-          turbo_frame: '_top',
+          controller: 'prefetch',
+          turbo_frame: '_top'
         },
         class: "text-sm opacity-70 link capitalize" %>
     </div>
