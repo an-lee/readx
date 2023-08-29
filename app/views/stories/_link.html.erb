@@ -2,7 +2,8 @@
   <%= link_to story.title_text, 
     story_path(story), 
     data: {
-      controller: 'prefetch'
+      controller: 'prefetch',
+      turbo_frame: '_top'
     },
     class: "hover:text-primary" %>
   <span class="text-xs opacity-70 ml-1"><%= story.domain_name %></span>

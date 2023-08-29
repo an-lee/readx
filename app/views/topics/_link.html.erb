@@ -2,5 +2,11 @@
   <span class="text-xs opacity-70 mr-1">
     <%= render 'components/datetime', datetime: topic.published_at %>
   </span>
-  <%= link_to topic.title_text, topic_path(topic), target: "_blank", class: "hover:text-primary" %>
+  <%= link_to topic.title_text, 
+    topic_path(topic), 
+    data: {
+      controller: 'prefetch',
+      turbo_frame: '_top'
+    },
+    class: "hover:text-primary" %>
 </li>
