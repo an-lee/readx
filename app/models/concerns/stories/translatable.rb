@@ -15,7 +15,7 @@ module Stories::Translatable
   end
 
   def all_translated?
-    %i[title content summary].all? do |attr|
+    %i[title summary].all? do |attr|
       translations.translated.exists?(key: attr)
     end
   end
