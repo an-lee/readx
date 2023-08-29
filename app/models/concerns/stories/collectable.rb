@@ -4,7 +4,7 @@ module Stories::Collectable
   extend ActiveSupport::Concern
 
   class_methods do
-    def collect_from_google(type: 'news', time_period: 'last_day', page: 1)
+    def collect_from_google(type: 'news', time_period: 'last_hour', page: 1)
       news_type =
         case type
         when 'news'

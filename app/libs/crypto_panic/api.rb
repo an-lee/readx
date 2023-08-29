@@ -20,9 +20,15 @@ module CryptoPanic
     # - filter: rising|hot|bullish|bearish|important|saved|lol
     # - currencies: BTC,ETH,...
     # - regions: EN,CN,...
-    # - kinds: all|news|media
+    # - kind: all|news|media
     def posts(**params)
-      conn.get('api/v1/posts/', params.merge(auth_token: @auth_token)).body
+      default_params = {
+        auth_token: @auth_token,
+        public: true,
+        meatdata: true,
+        kind: 'news'
+      }
+      conn.get('api/v1/posts/', default_params.merge(params.compact_blank)).body
     end
   end
 end
