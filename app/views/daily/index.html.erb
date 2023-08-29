@@ -1,0 +1,27 @@
+<div class="w-full max-w-prose mx-auto bg-white py-14 px-8 sm:px-12">
+  <div class="mb-10 border-y-4 py-1 border-primary">
+    <div class="border-y py-3 border-primary">
+      <div class="flex items-center justify-between">
+        <div class="text-3xl font-serif text-primary">
+          <%= t('.daily_topics') %>
+        </div>
+        <div class="text-right text-primary">
+          <div class="font-serif">
+            <%= Time.current.strftime('%Y.%m.%d') %>
+          </div>
+          <div class="font-serif">
+            <%= Time.current.strftime('%A') %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ul class="space-y-6 list-[square] list-inside">
+    <% @topics.each do |topic| %>
+      <li id="<%= dom_id topic %>">
+        <%= link_to topic.title_text, topic_path(topic), class: 'sm:hover:text-primary sm:hover:link' %>
+      </li>
+    <% end %>
+  </ul>
+</div>

@@ -2,6 +2,7 @@ en:
   components:
     nav:
       topics: Trending
+      daily: Daily
       news: News
       opinions: Opinions
   topics:
@@ -17,3 +18,6 @@ en:
       related: Related
       from: From
       original_link: Original Link
+  daily:
+    index:
+      daily_topics: Daily Topics

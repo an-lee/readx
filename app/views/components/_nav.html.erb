@@ -10,6 +10,9 @@
             <%= link_to t('.topics'), root_path, class: "whitespace-nowrap" %>
           </li>
           <li>
+            <%= link_to t('.daily'), daily_path(type: :fact), class: "whitespace-nowrap" %>
+          </li>
+          <li>
             <%= link_to t('.news'), stories_path(type: :fact), class: "whitespace-nowrap" %>
           </li>
           <li>
@@ -27,6 +30,10 @@
       <%= link_to t('.topics'), 
         root_path, 
         class: "text-base hover:font-bold hover:text-primary px-4 #{request.path == '/' || request.path.include?('topics') ? 'text-primary' : ''}" %>
+
+      <%= link_to t('.daily'), 
+        daily_path,
+        class: "text-base hover:font-bold hover:text-primary px-4 #{request.path.include?('daily') ? 'text-primary' : ''}" %>
 
       <%= link_to t('.news'), 
         stories_path(type: :fact),

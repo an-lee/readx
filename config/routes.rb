@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get 'service-worker.js', to: 'service_worker#service_worker'
   get 'manifest.json', to: 'service_worker#manifest'
 
+  get 'daily', to: 'daily#index'
+
   resources :topics, only: %i[index show]
   resources :stories, only: %i[index show]
 
