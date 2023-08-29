@@ -104,6 +104,9 @@ gem 'bootsnap', require: false
 # A robust Admin Interface for Ruby on Rails apps
 gem 'madmin'
 
+# Simple, powerful, first-party analytics for Rails
+gem 'ahoy_matey'
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 

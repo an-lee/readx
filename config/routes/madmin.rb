@@ -20,6 +20,10 @@ namespace :madmin, constraints: AdminConstraint.new do
   # sidekiq
   mount Sidekiq::Web, at: 'sidekiq'
 
+  namespace :ahoy do
+    resources :events
+    resources :visits
+  end
   resources :administrators
   resources :llm_messages
   resources :stories

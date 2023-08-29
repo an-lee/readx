@@ -31,5 +31,6 @@ class StoriesController < ApplicationController
 
   def content
     @story = Story.find(params[:story_id])
+    ahoy.track 'View full content', story_id: params[:story_id]
   end
 end
