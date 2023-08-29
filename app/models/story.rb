@@ -179,5 +179,6 @@ class Story < ApplicationRecord
 
   def setup_default_attributes
     self.domain = URI.parse(url).host
+    self.published_at ||= Time.current
   end
 end
