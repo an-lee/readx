@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   include Pagy::Backend
 
   helper_method :current_locale
+  helper_method :from_mixin_messenger?
 
   def with_locale(&)
     locale = current_locale&.to_sym || I18n.default_locale
@@ -13,5 +14,9 @@ class ApplicationController < ActionController::Base
 
   def current_locale
     @current_locale ||= (session[:current_locale].presence || browser_locale.presence || I18n.default_locale)
+  end
+
+  def from_mixin_messenger?
+    request&.user_agent&.match?(/Mixin/)
   end
 end

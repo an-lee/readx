@@ -1,4 +1,5 @@
 en:
+  page_description: 'AI powered news aggregator and topic tracking tool.'
   components:
     nav:
       topics: Trending
