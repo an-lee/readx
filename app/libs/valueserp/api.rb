@@ -34,7 +34,7 @@ module Valueserp
         show_duplicates: false,
         google_domain: 'google.com',
         gl: 'us',
-        sort_by: 'date',
+        sort_by: 'relevance',
         num: 100,
         page: 1
       }
