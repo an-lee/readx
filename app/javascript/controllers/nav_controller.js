@@ -23,16 +23,11 @@ const getMixinContext = () => {
 
 export default class extends Controller {
   static targets = ["mixinShare", "genericShare"];
-
-  mixinShareTargetConnected() {
+  connect() {
     const ctx = getMixinContext();
     if (ctx.app_version) {
       this.mixinShareTarget.classList.remove("hidden");
-    }
-  }
-
-  genericShareTargetConnected() {
-    if (navigator.share) {
+    } else if (navigator.share) {
       this.genericShareTarget.classList.remove("hidden");
     }
   }
