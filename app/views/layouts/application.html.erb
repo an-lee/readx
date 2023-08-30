@@ -13,11 +13,22 @@
     <%= javascript_importmap_tags %>
     <link rel="manifest" crossorigin="use-credentials" href="/manifest.json" />
   </head>
-
   <body>
-    <%= render "components/nav" %>
-    <main class="@container/main mx-auto sm:mt-4 flex bg-base-200/30 sm:bg-base-100 mb-24">
-      <%= yield %>
+
+    <main class="@container/main bg-base-200/30 sm:bg-base-100 min-h-screen drawer lg:drawer-open">
+      <input id="main-drawer" type="checkbox" class="drawer-toggle" />
+      <div class="drawer-content w-full mx-auto">
+        <%= render "components/nav" %>
+        <div class="h-[calc(100vh-6.5rem-env(safe-area-inset-bottom))] sm:h-[calc(100vh-4rem)] overflow-y-auto scrollbar-hide">
+          <%= yield %>
+        </div>
+        <%= render "components/tabbar" %>
+      </div>
+
+      <div class="drawer-side">
+        <label for="main-drawer" class="drawer-overlay"></label>
+        <%= render 'components/markets' %>
+      </div>
     </main>
 
     <%= turbo_frame_tag 'modal' %>

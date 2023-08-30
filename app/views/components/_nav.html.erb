@@ -1,26 +1,39 @@
 <div class="sticky top-0 z-10 sm:static navbar min-h-12 sm:min-h-16 bg-base-100 border-b" data-controller="nav" data-nav-path="<%= request.params['type'] %>">
   <div class="w-full max-w-4xl mx-auto flex items-center relative">
     <div class="absolute left-0 sm:hidden">
-      <% if from_mixin_messenger? %>
-        <%= link_to "", 
-          target: "_blank", 
-          class: "btn btn-square btn-ghost",
-          data: { 
-            controller: 'share-link', 
-            share_link_target_value: 'mixin',
-            share_link_app_id_value: ReadxBot.api.client_id
-          } do %>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
-          </svg>
-        <% end %>
+      <%= link_to "", 
+        target: "_blank", 
+        class: "btn btn-square btn-ghost hidden",
+        data: { 
+          nav_target: 'mixinShare',
+          controller: 'share-link', 
+          share_link_target_value: 'mixin',
+          share_link_app_id_value: ReadxBot.api.client_id
+        } do %>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
+        </svg>
       <% end %>
+
+      <a data-nav-target="genericShare" data-action="nav#genericShare" class="btn btn-circle btn-ghost hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
+        </svg>
+      </a>
+
+      <label for="main-drawer" class="btn btn-circle btn-ghost">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
+        </svg>
+      </label>
     </div>
+
     <div class="flex-none mx-auto sm:mx-6">
       <%= link_to root_path, class: 'text-xl' do %>
         <span class="">Read</span><span class="font-bold text-primary">X</span>
       <% end %>
     </div>
+
     <div class="flex-1 items-center hidden sm:flex">
       <%= link_to t('.topics'), 
         root_path, 
@@ -39,38 +52,4 @@
         class: "text-base hover:font-bold hover:text-primary px-4 #{request.params['type'] == 'opinion' ? 'text-primary' : ''}" %>
     </div>
   </div>
-</div>
-
-<div class="sm:hidden border-t fixed right-0 bottom-0 w-full bg-base-100 z-10">
-  <div class="flex items-center justify-around h-14">
-    <%= link_to root_path, class: "#{request.path == '/' || request.path.include?('topics') ? 'active text-primary border-primary' : ''}" do %>
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z" />
-      </svg>
-      <span class="btm-nav-label text-xs opacity-50"><%= t('.topics') %></span>
-    <% end %>
-
-    <%= link_to daily_path, class: "#{request.path.include?('daily') ? 'active text-primary border-primary' : ''}" do %>
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
-      </svg>
-      <span class="btm-nav-label text-xs opacity-50"><%= t('.daily') %></span>
-    <% end %>
-
-    <%= link_to stories_path(type: :fact), class: "#{request.params['type'] == 'fact' ? 'active text-primary border-primary' : ''}" do %>
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 19.5v-.75a7.5 7.5 0 00-7.5-7.5H4.5m0-6.75h.75c7.87 0 14.25 6.38 14.25 14.25v.75M6 18.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-      </svg>
-      <span class="btm-nav-label text-xs opacity-50"><%= t('.news') %></span>
-    <% end %>
-
-    <%= link_to stories_path(type: :opinion), class: "#{request.params['type'] == 'opinion' ? 'active text-primary border-primary' : ''}" do %>
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M3 3v1.5M3 21v-6m0 0l2.77-.693a9 9 0 016.208.682l.108.054a9 9 0 006.086.71l3.114-.732a48.524 48.524 0 01-.005-10.499l-3.11.732a9 9 0 01-6.085-.711l-.108-.054a9 9 0 00-6.208-.682L3 4.5M3 15V4.5" />
-      </svg>
-      <span class="btm-nav-label text-xs opacity-50"><%= t('.opinions') %></span>
-    <% end %>
-  </div>
-  <div style="height:env(safe-area-inset-bottom)"></div>
 </div>

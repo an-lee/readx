@@ -6,6 +6,11 @@ zh-CN:
       daily: 每日早报
       news: 最新资讯
       opinions: 市场观点
+    tabbar:
+      topics: 热门话题
+      daily: 每日早报
+      news: 最新资讯
+      opinions: 市场观点
   topics:
     topic:
       detail: 查看话题
