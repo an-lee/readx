@@ -16,11 +16,11 @@ class TaggingResource < Madmin::Resource
   # end
 
   # Uncomment this to customize the default sort column and direction.
-  # def self.default_sort_column
-  #   "created_at"
-  # end
-  #
-  # def self.default_sort_direction
-  #   "desc"
-  # end
+  def self.default_sort_column
+    'created_at'
+  end
+
+  def self.default_sort_direction
+    'desc'
+  end
 end
