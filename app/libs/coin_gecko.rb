@@ -7,7 +7,9 @@ module CoinGecko
 
   def self.coins_markets_cache
     Rails.cache.fetch('coin_gecko_coins_markets', expires_in: 30.seconds) do
-      CoinGecko.api.coins_markets
+      CoinGecko.api.coins_markets || []
     end
+  rescue StandardError
+    []
   end
 end
