@@ -2,7 +2,7 @@
 
 class TopicsController < ApplicationController
   def index
-    topics = Topic.hot
+    topics = Topic.hot.order(created_at: :desc)
     options = {
       after: params[:after],
       before: params[:before],
