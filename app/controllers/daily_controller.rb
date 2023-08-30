@@ -4,7 +4,7 @@ class DailyController < ApplicationController
   def index
     @topics =
       Topic
-      .where(published_at: Time.zone.yesterday.all_day)
+      .where(published_at: Time.now.yesterday.utc.all_day)
       .order(stories_count: :desc)
       .limit(10)
 

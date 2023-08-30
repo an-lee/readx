@@ -4,6 +4,6 @@
   <% end %>
 
   <%= turbo_stream.update "topics-pagy" do %>
-    <%= render 'components/pagy', pagy: @pagy, before: @topics.last.id %>
+    <%= render 'components/pagy', pagy: @pagy, before: @topics.last&.id %>
   <% end %>
 <% end %>
