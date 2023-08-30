@@ -5,14 +5,6 @@ importScripts(
 const { CacheFirst, NetworkFirst } = workbox.strategies;
 const { registerRoute } = workbox.routing;
 
-// If we have critical pages that won't be changing very often, it's a good idea to use cache first with them
-// registerRoute(
-//   ({ url }) => url.pathname.startsWith("/widgets"),
-//   new CacheFirst({
-//     cacheName: "documents",
-//   })
-// );
-
 // For every other page we use network first to ensure the most up-to-date resources
 registerRoute(
   ({ request, url }) =>

@@ -37,7 +37,7 @@ module Stories::Classifiable
     @nearest_topic ||=
       Topic
       .where(
-        published_at: (published_at - 24.hours)...(published_at + 24.hours)
+        published_at: Time.zone.today.all_day,
       ).nearest_neighbors(:embedding, embedding, distance: :cosine).first
   end
 
