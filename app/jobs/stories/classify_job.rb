@@ -4,6 +4,8 @@ class Stories::ClassifyJob < ApplicationJob
   queue_as :high
 
   def perform(id)
+    return unless Rails.env.production?
+
     Story.find_by(id:)&.classify_topic!
   rescue Llm::APIError => e
     logger.error(e)

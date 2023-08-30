@@ -4,6 +4,8 @@ class Translations::TranslateJob < ApplicationJob
   queue_as :default
 
   def perform(id)
+    return unless Rails.env.production?
+
     Translation.find_by(id:)&.translate!
   rescue Llm::APIError => e
     logger.error(e)
