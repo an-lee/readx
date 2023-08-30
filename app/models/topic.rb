@@ -37,7 +37,7 @@ class Topic < ApplicationRecord
   validates :summary, presence: true
 
   delegate :title, :summary, :content, \
-           :title_text, :summary_text, :content_text, \
+           :title_text, :summary_text, \
            :url, \
            to: :source
 

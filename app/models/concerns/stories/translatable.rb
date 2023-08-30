@@ -21,7 +21,7 @@ module Stories::Translatable
   end
 
   included do
-    %i[title summary content].each do |attr_name|
+    %i[title summary].each do |attr_name|
       define_method "#{attr_name}_text" do
         if I18n.locale == locale
           send attr_name

@@ -13,7 +13,7 @@
 
   <div class="prose">
     <%= @story.summary_text %>
-    <%= render 'stories/full_content_button', story: @story if @story.content_text.length > 300 %>
+    <%= render 'stories/full_content_button', story: @story if @story.content.length > 300 %>
   </div>
 
   <% if @story.related_stories.present? %>
