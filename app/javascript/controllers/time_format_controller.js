@@ -14,13 +14,12 @@ export default class extends Controller {
   connect() {}
 
   timestampValueChanged(value) {
-    console.log(value)
-    if (!this.timestampValue) {
+    if (!value) {
       return;
     }
 
     let time;
-    const timestamp = dayjs.unix(this.timestampValue);
+    const timestamp = dayjs.unix(value);
 
     if (timestamp.isBefore(dayjs().startOf('year'))) {
       time = timestamp.format('lll');

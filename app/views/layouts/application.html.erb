@@ -39,7 +39,11 @@
 
       <div class="drawer-side">
         <label for="main-drawer" class="drawer-overlay"></label>
-        <%= render 'components/markets' %>
+        <div data-controller="markets">
+          <%= turbo_frame_tag 'markets' do %>
+            <%= render 'components/markets' %>
+          <% end %>
+        </div>
       </div>
     </main>
 

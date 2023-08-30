@@ -14,7 +14,12 @@
           <%= format('%.2f', market['price_change_percentage_24h'].to_f) %>%
         </div>
 
-        <%= link_to '', stories_path(tag: market['symbol'].upcase), class: 'absolute inset-0' %>
+        <%= link_to '', 
+          stories_path(tag: market['symbol'].upcase), 
+          data: {
+            turbo_frame: '_top'
+          },
+          class: 'absolute inset-0' %>
       </div>
     </li>
   <% end %>

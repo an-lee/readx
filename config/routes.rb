@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'manifest.json', to: 'service_worker#manifest'
 
   get 'daily', to: 'daily#index'
+  get 'markets', to: 'markets#index'
 
   resources :topics, only: %i[index show]
   resources :stories, only: %i[index show] do
