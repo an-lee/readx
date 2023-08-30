@@ -1,10 +1,10 @@
 <div class="w-full flex justify-center py-4">
-  <% if pagy&.next.present? %>
+  <% if pagy&.has_more? %>
     <div class="hidden" data-infinite-scroll-target="loading">
       <%= render 'components/loading' %>
     </div>
     <%= link_to t('components.pagy.more'), 
-      pagy_url_for(pagy, pagy.next), 
+      url_for(before: before), 
       data: { 
         turbo_stream: true,
         infinite_scroll_target: "pagination",

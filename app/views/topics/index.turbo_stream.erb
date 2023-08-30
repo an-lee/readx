@@ -1,15 +1,9 @@
 <%= turbo_frame_tag "topics" do %>
-  <% if params[:page].present? %>
-    <%= turbo_stream.append "topics-list" do %>
-      <%= render partial: "topics/topic", collection: @topics %>
-    <% end %>
-  <% else %>
-    <%= turbo_stream.update "topics-list" do %>
-      <%= render partial: "topics/topic", collection: @topics %>
-    <% end %>
+  <%= turbo_stream.append "topics-list" do %>
+    <%= render partial: "topics/topic", collection: @topics %>
   <% end %>
 
   <%= turbo_stream.update "topics-pagy" do %>
-    <%= render 'components/pagy', pagy: @pagy %>
+    <%= render 'components/pagy', pagy: @pagy, before: @topics.last.id %>
   <% end %>
 <% end %>

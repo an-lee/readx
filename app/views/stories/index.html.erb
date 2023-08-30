@@ -9,7 +9,7 @@
         </div>
         <div data-infinite-scroll-target="scrollArea"></div>
         <div id="stories-pagy">
-          <%= render 'components/pagy', pagy: @pagy %>
+          <%= render 'components/pagy', pagy: @pagy, before: @stories.last&.id %>
         </div>
       <% end %>
     <% end %>

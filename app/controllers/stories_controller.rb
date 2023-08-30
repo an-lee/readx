@@ -2,16 +2,14 @@
 
 class StoriesController < ApplicationController
   def index
-    type = params[:type] || 'fact'
-    tag = Tag.find_by(name: params[:tag].upcase) if params[:tag]
-
     stories =
-      if tag
-        tag.stories
+      if params[:tag]
+        Tag.find_by(name: params[:tag].upcase)&.stories || Story.none
       else
         Story.classified
       end
 
+    type = params[:type] || 'fact'
     stories =
       case type
       when 'opinion'
@@ -22,7 +20,13 @@ class StoriesController < ApplicationController
         stories
       end
 
-    @pagy, @stories = pagy stories.order(published_at: :desc)
+    options = {
+      after: params[:after],
+      before: params[:before],
+      order: { published_at: :desc }
+    }.compact_blank
+
+    @pagy, @stories = pagy_uuid_cursor stories, **options
     @page_title =
       if type == 'opinion'
         t('.opinions')

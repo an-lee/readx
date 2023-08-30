@@ -2,8 +2,14 @@
 
 class TopicsController < ApplicationController
   def index
-    @pagy, @topics = pagy Topic.hot.order(created_at: :desc)
+    topics = Topic.hot
+    options = {
+      after: params[:after],
+      before: params[:before],
+      order: { created_at: :desc }
+    }.compact_blank
 
+    @pagy, @topics = pagy_uuid_cursor topics, **options
     @page_title = t('.trending')
   end
 

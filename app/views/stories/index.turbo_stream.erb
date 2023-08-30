@@ -1,15 +1,9 @@
 <%= turbo_frame_tag "stories" do %>
-  <% if params[:page].present? %>
-    <%= turbo_stream.append "stories-list" do %>
-      <%= render partial: "stories/story", collection: @stories %>
-    <% end %>
-  <% else %>
-    <%= turbo_stream.update "stories-list" do %>
-      <%= render partial: "stories/story", collection: @stories %>
-    <% end %>
+  <%= turbo_stream.append "stories-list" do %>
+    <%= render partial: "stories/story", collection: @stories %>
   <% end %>
 
   <%= turbo_stream.update "stories-pagy" do %>
-    <%= render 'components/pagy', pagy: @pagy %>
+    <%= render 'components/pagy', pagy: @pagy, before: @stories.last&.id %>
   <% end %>
 <% end %>
