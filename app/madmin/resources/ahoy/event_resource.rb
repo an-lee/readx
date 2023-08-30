@@ -18,7 +18,7 @@ class Ahoy::EventResource < Madmin::Resource
 
   # Uncomment this to customize the default sort column and direction.
   def self.default_sort_column
-    'created_at'
+    'time'
   end
 
   def self.default_sort_direction
