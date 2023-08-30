@@ -31,10 +31,10 @@ module Valueserp
         q: query,
         search_type: 'news',
         news_type: 'all',
-        show_duplicates: false,
+        # show_duplicates: false,
         google_domain: 'google.com',
         gl: 'us',
-        sort_by: 'relevance',
+        # sort_by: 'relevance',
         num: 100,
         page: 1
       }

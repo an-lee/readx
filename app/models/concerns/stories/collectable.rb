@@ -14,6 +14,7 @@ module Stories::Collectable
         end
 
       r = Valueserp.api.search('crypto', time_period:, news_type:, page:, num:)
+      raise r.dig('request_info', 'message') unless r.dig('request_info', 'success')
 
       r['news_results'].each do |result|
         result.delete('thumbnail')
