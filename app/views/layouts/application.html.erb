@@ -31,7 +31,7 @@
       <input id="main-drawer" type="checkbox" class="drawer-toggle" />
       <div class="drawer-content w-full mx-auto">
         <%= render "components/nav" %>
-        <div class="h-[calc(100vh-6.5rem-env(safe-area-inset-bottom))] sm:h-[calc(100vh-4rem)] overflow-y-auto scrollbar-hide">
+        <div class="h-[calc(100vh-6.5rem-env(safe-area-inset-bottom))] sm:h-[calc(100vh-4rem)] overflow-y-auto scrollbar-hide sm:py-4">
           <%= yield %>
         </div>
         <%= render "components/tabbar" %>
