@@ -3,7 +3,6 @@
 class StoriesController < ApplicationController
   def index
     stories =
-        Story.classified
       if params[:tag]
         Tag.find_by(name: params[:tag].upcase)&.stories&.classified || Story.none
       else

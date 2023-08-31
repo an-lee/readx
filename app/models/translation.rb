@@ -24,9 +24,10 @@ class Translation < ApplicationRecord
     If the text is a long article. It may contain some irrevelant sentences/paragraph, like advertisement, author's introduction, etc. You can ignore them and only translate the key sentences/paragraphs.
   CONTEXT
   TRANSLATE_PROMPT_TEMPLATE = <<~PROMPT
-    Translate the text to {locale}, please do not explain any sentences, just translate or leave them as they are.:
+    Translate the text to {locale}, please do not explain, just translate or leave them as they are. The text is delimited by four backticks.
 
-    {text}
+    Text:
+    ````{text}````
   PROMPT
 
   belongs_to :translatable, polymorphic: true, touch: true
@@ -38,6 +39,13 @@ class Translation < ApplicationRecord
   scope :for_locale, ->(locale) { where(locale:) }
   scope :untranslated, -> { where(value: nil) }
   scope :translated, -> { where.not(value: nil) }
+
+  def language
+    {
+      'zh-CN' => 'Simplified Chinese',
+      en: 'English'
+    }[locale.to_sym]
+  end
 
   def original_text
     @original_text ||= translatable.send(key)
@@ -71,7 +79,7 @@ class Translation < ApplicationRecord
     @llm_message ||= llm_messages.first || llm_messages.create!(
       llm_message_type: 'translate',
       context: TRANSLATE_CONTEXT,
-      prompt: llm_translate_prompt.format(locale:, text: original_text.truncate(8_000))
+      prompt: llm_translate_prompt.format(locale: language, text: original_text.truncate(8_000))
     )
   end
 end
