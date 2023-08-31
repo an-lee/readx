@@ -1,45 +1,47 @@
-<div 
-  data-controller="card" 
-  data-card-active-value="false"
-  data-action="click->card#toggle" 
-  id="<%= dom_id topic %>" 
-  class="p-5 cursor-pointer space-y-4">
-
-  <div class="relative">
-    <span data-card-target="title" class="text-base sm:hover:link sm:hover:text-primary">
-      <%= topic.title_text %>
-      <%= link_to '', topic_path(topic), 
-        data: {
-          controller: 'prefetch',
-          turbo_frame: '_top',
-        },
-        class: 'absolute inset-0 w-full hidden sm:block' %>
-    </span>
-
-    <span class="text-xs opacity-50">
-      <%= render 'components/datetime', datetime: topic.published_at %>
-    </span>
-  </div>
-
+<% cache [topic, current_locale] do %>
   <div 
-    data-card-target="summary" 
-    class="opacity-70 text-sm/loose sm:line-clamp-3 hidden hover:opacity-100">
-    <%= topic.summary_text %>
-  </div>
+    data-controller="card" 
+    data-card-active-value="false"
+    data-action="click->card#toggle" 
+    id="<%= dom_id topic %>" 
+    class="p-5 cursor-pointer space-y-4">
 
-  <div data-card-target="links" class="hidden mt-6">
-    <ul class="list-[square] list-inside">
-      <%= render partial: 'stories/link', collection: topic.stories, as: :story %>
-    </ul>
+    <div class="relative">
+      <span data-card-target="title" class="text-base sm:hover:link sm:hover:text-primary">
+        <%= topic.title_text %>
+        <%= link_to '', topic_path(topic), 
+          data: {
+            controller: 'prefetch',
+            turbo_frame: '_top',
+          },
+          class: 'absolute inset-0 w-full hidden sm:block' %>
+      </span>
 
-    <div class="flex justify-end">
-      <%= link_to t('.detail'), 
-        topic_path(topic), 
-        data: {
-          controller: 'prefetch',
-          turbo_frame: '_top'
-        },
-        class: "text-sm opacity-70 link capitalize" %>
+      <span class="text-xs opacity-50">
+        <%= render 'components/datetime', datetime: topic.published_at %>
+      </span>
+    </div>
+
+    <div 
+      data-card-target="summary" 
+      class="opacity-70 text-sm/loose sm:line-clamp-3 hidden hover:opacity-100">
+      <%= topic.summary_text %>
+    </div>
+
+    <div data-card-target="links" class="hidden mt-6">
+      <ul class="list-[square] list-inside">
+        <%= render partial: 'stories/link', collection: topic.stories, as: :story %>
+      </ul>
+
+      <div class="flex justify-end">
+        <%= link_to t('.detail'), 
+          topic_path(topic), 
+          data: {
+            controller: 'prefetch',
+            turbo_frame: '_top'
+          },
+          class: "text-sm opacity-70 link capitalize" %>
+      </div>
     </div>
   </div>
-</div>
+<% end %>
