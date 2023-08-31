@@ -1,9 +1,15 @@
 <%= turbo_frame_tag "stories" do %>
-  <%= turbo_stream.append "stories-list" do %>
-    <%= render partial: "stories/story", collection: @stories %>
-  <% end %>
+  <% if params[:after].present? %>
+    <%= turbo_stream.prepend "stories-pending" do %>
+      <%= render partial: "stories/story", collection: @stories.reverse %>
+    <% end %>
+  <% else %>
+    <%= turbo_stream.append "stories-list" do %>
+      <%= render partial: "stories/story", collection: @stories %>
+    <% end %>
 
-  <%= turbo_stream.update "stories-pagy" do %>
-    <%= render 'components/pagy', pagy: @pagy, before: @stories.last&.id %>
+    <%= turbo_stream.update "stories-pagy" do %>
+      <%= render 'components/pagy', pagy: @pagy, before: @stories.last&.id %>
+    <% end %>
   <% end %>
 <% end %>

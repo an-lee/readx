@@ -2,7 +2,14 @@ import { Controller } from "@hotwired/stimulus";
 import { get } from "@rails/request.js";
 
 export default class extends Controller {
-  static targets = ["pending", "items", "scrollArea", "pagination", "loading"];
+  static targets = [
+    "noticeBox",
+    "pending",
+    "items",
+    "scrollArea",
+    "pagination",
+    "loading",
+  ];
 
   paginationTargetConnected() {
     this.paginationTarget.classList.add("hidden");
@@ -50,39 +57,50 @@ export default class extends Controller {
   }
 
   pendingTargetConnected() {
+    this.pendingTarget.addEventListener("DOMNodeInserted", () => {
+      const count = this.pendingTarget.children.length;
+      if (count > 0) {
+        this.noticeBoxTarget.querySelector(
+          "span.topics-pending-count"
+        ).innerText = count;
+        document.title = `(${count}) ${document.title}`;
+        this.noticeBoxTarget.classList.remove("hidden");
+      } else {
+        this.noticeBoxTarget.classList.add("hidden");
+      }
+    });
+
     console.warn("Pending target connected");
     this.polling = setInterval(() => {
       this.loadAfter();
-    }, 3000);
+    }, 1000 * 60);
   }
 
   loadAfter() {
     const url = this.pendingTarget?.dataset?.url;
-    console.log("url", url);
     if (!url) return;
 
     const id = (
-      this.itemsTarget.children[4]?.id
+      this.pendingTarget?.children[0]?.id || this.itemsTarget.children[0]?.id
     )?.split("_")[1];
-    console.log("id", id);
     if (!id) return;
 
-    get(`${url}?after=${id}`, {
+    const uri = new URL(location.origin + url);
+    uri.searchParams.append("after", id);
+    get(uri.toString(), {
       contentType: "application/json",
       responseKind: "turbo-stream",
     });
   }
 
-  releasePending(event) {
-    console.warn("Releasing pending target");
+  releasePending() {
+    this.noticeBoxTarget.classList.add("hidden");
+    document.title = document.title.replace(/^\(\d+\) /, "");
     this.itemsTarget.insertAdjacentHTML(
       "afterbegin",
       this.pendingTarget.innerHTML
     );
     this.pendingTarget.innerHTML = "";
-
-    event.preventDefault();
-    event.target.remove();
   }
 
   disconnect() {

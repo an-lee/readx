@@ -4,14 +4,23 @@
       <% if @topics.blank? %>
         <%= render 'components/empty' %>
       <% else %>
-        <div id="topics-notice"></div>
+        <div class="hidden bg-warning/20 text-warning text-center text-sm py-2 cursor-pointer" 
+             id="topics-notice" 
+             data-action="click->infinite-scroll#releasePending"
+             data-infinite-scroll-target="noticeBox">
+          <span class="topics-pending-count mr-1"></span>
+          <%= t('.new_topics_to_load') %>
+        </div>
+
         <div data-infinite-scroll-target="pending" 
              data-url="<%= url_for %>" 
              id="topics-pending"
              class="hidden">
         </div>
 
-        <div data-infinite-scroll-target="items" id="topics-list" class="divide-y">
+        <div data-infinite-scroll-target="items" 
+             id="topics-list" 
+             class="divide-y">
           <%= render partial: "topics/topic", collection: @topics %>
         </div>
         <div data-infinite-scroll-target="scrollArea"></div>

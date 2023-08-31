@@ -16,6 +16,7 @@ en:
       detail: Topic Detail
     index:
       trending: Trending Topics
+      new_topics_to_load: "new topics"
     show:
       media_reports: Media Reports
       topic_tracing: Topic Tracing
@@ -25,6 +26,7 @@ en:
     index:
       news: News
       opinions: Opinions
+      new_stories_to_load: "new stories"
     show:
       related: Related
       from: From

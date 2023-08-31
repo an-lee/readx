@@ -16,6 +16,7 @@ zh-CN:
       detail: 查看话题
     index:
       trending: 热门话题
+      new_topics_to_load: "新话题"
     show:
       media_reports: 媒体报道
       topic_tracing: 话题追踪
@@ -25,6 +26,7 @@ zh-CN:
     index:
       news: 最新资讯
       opinions: 市场观点
+      new_stories_to_load: "新文章"
     show:
       related: 相关报道
       from: 来源

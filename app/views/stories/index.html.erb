@@ -4,9 +4,26 @@
       <% if @stories.blank? %>
         <%= render 'components/empty' %>
       <% else %>
-        <div id="stories-list" class="divide-y">
+        <div class="hidden bg-warning/20 text-warning text-center text-sm py-2 cursor-pointer" 
+             id="stories-notice" 
+             data-action="click->infinite-scroll#releasePending"
+             data-infinite-scroll-target="noticeBox">
+          <span class="topics-pending-count mr-1"></span>
+          <%= t('.new_stories_to_load') %>
+        </div>
+
+        <div data-infinite-scroll-target="pending" 
+             data-url="<%= url_for(type: params[:type]) %>" 
+             id="stories-pending"
+             class="hidden">
+        </div>
+
+        <div data-infinite-scroll-target="items" 
+          id="stories-list" 
+          class="divide-y">
           <%= render partial: "stories/story", collection: @stories %>
         </div>
+
         <div data-infinite-scroll-target="scrollArea"></div>
         <div id="stories-pagy">
           <%= render 'components/pagy', pagy: @pagy, before: @stories.last&.id %>

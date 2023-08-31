@@ -1,23 +1,13 @@
 <%= turbo_frame_tag "topics" do %>
   <% if params[:after].present? %>
     <%= turbo_stream.prepend "topics-pending" do %>
-      <%= render partial: "topics/topic", collection: @topics %>
+      <%= render partial: "topics/topic", collection: @topics.reverse %>
     <% end %>
-
-    <% if @topics.present? %>
-      <%= turbo_stream.update "topics-notice" do %>
-        <button 
-          data-action="click->infinite-scroll#releasePending"
-          class="w-full py-2 bg-warning/20 text-warning text-center">
-          <%= @topics.count %> more topics pending
-        </button>
-      <% end %>
-    <% end %>
-
   <% else %>
     <%= turbo_stream.append "topics-list" do %>
       <%= render partial: "topics/topic", collection: @topics %>
     <% end %>
+
     <%= turbo_stream.update "topics-pagy" do %>
       <%= render 'components/pagy', pagy: @pagy, before: @topics.last&.id %>
     <% end %>
