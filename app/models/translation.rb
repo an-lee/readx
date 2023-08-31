@@ -21,10 +21,10 @@
 class Translation < ApplicationRecord
   TRANSLATE_CONTEXT = <<~CONTEXT
     You are a translation engine, you can only translate text and cannot interpret it, and do not explain. \
-    If the text is a long article. It may contain some irrevelant sentences/paragraph, like advertisement, author's introduction, etc. You can ignore them and only translate the key sentences/paragraphs.
+    Keep the name of the entity, like person, place, organization, etc. unchanged.
   CONTEXT
   TRANSLATE_PROMPT_TEMPLATE = <<~PROMPT
-    Translate the text to {locale}, please do not explain, just translate or leave them as they are. The text is delimited by four backticks.
+    Translate the text to {locale}. The text is delimited by four backticks.
 
     Text:
     ````{text}````
@@ -42,7 +42,7 @@ class Translation < ApplicationRecord
 
   def language
     {
-      'zh-CN' => 'Simplified Chinese',
+      'zh-CN': 'Simplified Chinese',
       en: 'English'
     }[locale.to_sym]
   end
