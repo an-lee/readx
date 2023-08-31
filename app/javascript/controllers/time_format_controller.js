@@ -49,22 +49,22 @@ export default class extends Controller {
 
     const timestamp = dayjs.unix(this.timestampValue);
 
-    if (timestamp.isAfter(dayjs().subtract(10, "hour"))) {
+    if (timestamp.isAfter(dayjs().subtract(1, "minute"))) {
       this.timer = setTimeout(() => {
         this.refreshTimeDisplay();
-      }, 1000 * 60 * 30);
-    } else if (timestamp.isAfter(dayjs().subtract(1, "hour"))) {
-      this.timer = setTimeout(() => {
-        this.refreshTimeDisplay();
-      }, 1000 * 60 * 5);
+      }, 1000 * 10);
     } else if (timestamp.isAfter(dayjs().subtract(10, "minute"))) {
       this.timer = setTimeout(() => {
         this.refreshTimeDisplay();
       }, 1000 * 60);
-    } else if (timestamp.isAfter(dayjs().subtract(1, "minute"))) {
+    } else if (timestamp.isAfter(dayjs().subtract(1, "hour"))) {
       this.timer = setTimeout(() => {
         this.refreshTimeDisplay();
-      }, 1000 * 10);
+      }, 1000 * 60 * 5);
+    } else if (timestamp.isAfter(dayjs().subtract(10, "hour"))) {
+      this.timer = setTimeout(() => {
+        this.refreshTimeDisplay();
+      }, 1000 * 60 * 30);
     }
   }
 

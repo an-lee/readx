@@ -57,17 +57,25 @@ export default class extends Controller {
   }
 
   pendingTargetConnected() {
-    this.pendingTarget.addEventListener("DOMNodeInserted", () => {
-      const count = this.pendingTarget.children.length;
-      if (count > 0) {
-        this.noticeBoxTarget.querySelector(
-          "span.topics-pending-count"
-        ).innerText = count;
-        this.updateDocumentTitle(count);
-        this.noticeBoxTarget.classList.remove("hidden");
-      } else {
-        this.noticeBoxTarget.classList.add("hidden");
-      }
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === "childList") {
+          const count = this.pendingTarget.children.length;
+          if (count > 0) {
+            this.noticeBoxTarget.querySelector(
+              "span.topics-pending-count"
+            ).innerText = count;
+            this.updateDocumentTitle(count);
+            this.noticeBoxTarget.classList.remove("hidden");
+          } else {
+            this.noticeBoxTarget.classList.add("hidden");
+          }
+        }
+      });
+    });
+
+    observer.observe(this.pendingTarget, {
+      childList: true,
     });
 
     this.polling = setInterval(() => {
@@ -80,7 +88,7 @@ export default class extends Controller {
     if (!url) return;
 
     const id = (
-      this.pendingTarget?.children[0]?.id || this.itemsTarget.children[0]?.id
+      this.pendingTarget?.children[0]?.id || this.itemsTarget.children[4]?.id
     )?.split("_")[1];
     if (!id) return;
 
