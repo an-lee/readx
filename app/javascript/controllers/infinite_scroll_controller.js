@@ -88,7 +88,7 @@ export default class extends Controller {
     if (!url) return;
 
     const id = (
-      this.pendingTarget?.children[0]?.id || this.itemsTarget.children[4]?.id
+      this.pendingTarget?.children[0]?.id || this.itemsTarget.children[0]?.id
     )?.split("_")[1];
     if (!id) return;
 
