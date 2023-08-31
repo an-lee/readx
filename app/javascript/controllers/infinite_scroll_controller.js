@@ -70,7 +70,6 @@ export default class extends Controller {
       }
     });
 
-    console.warn("Pending target connected");
     this.polling = setInterval(() => {
       this.loadAfter();
     }, 1000 * 60);
@@ -104,7 +103,6 @@ export default class extends Controller {
   }
 
   disconnect() {
-    console.warn("Pending controller disconnected");
     clearInterval(this.polling);
   }
 }
