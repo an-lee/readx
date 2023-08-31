@@ -7,7 +7,7 @@
     class="p-5 cursor-pointer space-y-4">
 
     <div class="relative">
-      <span data-card-target="title" class="text-base sm:hover:link sm:hover:text-primary">
+      <span data-card-target="title" class="text-lg sm:hover:link sm:hover:text-primary">
         <%= story.title_text %>
         <%= link_to '', 
           story_path(story), 
@@ -25,13 +25,13 @@
 
     <div 
       data-card-target="summary" 
-      class="opacity-70 text-sm/loose sm:line-clamp-3 hidden hover:opacity-100">
+      class="opacity-70 text-base/loose sm:line-clamp-3 hidden hover:opacity-100">
       <%= story.summary_text %>
     </div>
 
     <div data-card-target="links" class="hidden">
       <div class="flex justify-end">
-        <span class="text-xs opacity-70 ml-1"><%= story.domain_name %></span>
+        <span class="text-sm font-serif opacity-70 ml-1"><%= story.domain_name %></span>
       </div>
     </div>
   </div>

@@ -16,7 +16,7 @@
       <h3 class="text-lg mb-4">
         <%= @story.title_text %>
       </h3>
-      <div class="prose mb-16 overflow-hidden">
+      <div class="prose lg:prose-lg mb-16 overflow-hidden">
         <%= Kramdown::Document.new(@story.content, input: 'GFM').to_html.html_safe %>
       </div>
     </form>

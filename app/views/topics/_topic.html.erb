@@ -7,7 +7,7 @@
     class="p-5 cursor-pointer space-y-4">
 
     <div class="relative">
-      <span data-card-target="title" class="text-base sm:hover:link sm:hover:text-primary">
+      <span data-card-target="title" class="text-lg sm:hover:link sm:hover:text-primary">
         <%= topic.title_text %>
         <%= link_to '', topic_path(topic), 
           data: {
@@ -24,7 +24,7 @@
 
     <div 
       data-card-target="summary" 
-      class="opacity-70 text-sm/loose sm:line-clamp-3 hidden hover:opacity-100">
+      class="opacity-70 text-base/loose sm:line-clamp-3 hidden hover:opacity-100">
       <%= topic.summary_text %>
     </div>
 
@@ -33,14 +33,14 @@
         <%= render partial: 'stories/link', collection: topic.stories, as: :story %>
       </ul>
 
-      <div class="flex justify-end">
+      <div class="mt-4 border-t sm:border-none flex justify-center sm:justify-end">
         <%= link_to t('.detail'), 
           topic_path(topic), 
           data: {
             controller: 'prefetch',
             turbo_frame: '_top'
           },
-          class: "text-sm opacity-70 link capitalize" %>
+          class: "btn btn-block btn-ghost btn-sm sm:btn-link btn-neutral sm:w-[unset] text-sm opacity-70 capitalize" %>
       </div>
     </div>
   </div>
