@@ -21,7 +21,8 @@
 class Translation < ApplicationRecord
   TRANSLATE_CONTEXT = <<~CONTEXT
     You are a translation engine, you can only translate text and cannot interpret it, and do not explain. \
-    Keep the name of the entity, like person, place, organization, etc. unchanged.
+    Keep the name of the entity, like person, place, organization, etc. unchanged. \
+    Return the translated text only, no other words needed.
   CONTEXT
   TRANSLATE_PROMPT_TEMPLATE = <<~PROMPT
     Translate the text to {locale}. The text is delimited by four backticks.
@@ -61,7 +62,7 @@ class Translation < ApplicationRecord
 
     llm_message.chat if llm_message.pending?
     update!(
-      value: llm_message.result
+      value: llm_message.result.gsub('````', '').strip
     )
 
     translatable.translate! if translatable.is_a?(Story) && translatable.may_translate?
