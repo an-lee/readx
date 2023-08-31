@@ -63,7 +63,7 @@ export default class extends Controller {
         this.noticeBoxTarget.querySelector(
           "span.topics-pending-count"
         ).innerText = count;
-        document.title = `(${count}) ${document.title}`;
+        this.updateDocumentTitle(count);
         this.noticeBoxTarget.classList.remove("hidden");
       } else {
         this.noticeBoxTarget.classList.add("hidden");
@@ -94,12 +94,24 @@ export default class extends Controller {
 
   releasePending() {
     this.noticeBoxTarget.classList.add("hidden");
-    document.title = document.title.replace(/^\(\d+\) /, "");
+    this.updateDocumentTitle(0);
     this.itemsTarget.insertAdjacentHTML(
       "afterbegin",
       this.pendingTarget.innerHTML
     );
     this.pendingTarget.innerHTML = "";
+  }
+
+  updateDocumentTitle(count = 0) {
+    if (count > 0) {
+      if (document.title.match(/^\(\d+\) /)) {
+        document.title = document.title.replace(/^\(\d+\) /, `(${count}) `);
+      } else {
+        document.title = `(${count}) ${document.title}`;
+      }
+    } else {
+      document.title = document.title.replace(/^\(\d+\) /, "");
+    }
   }
 
   disconnect() {
