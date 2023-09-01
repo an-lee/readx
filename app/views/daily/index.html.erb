@@ -20,7 +20,7 @@
   <ul class="space-y-6 list-[square] list-inside">
     <% @topics.each do |topic| %>
       <li id="<%= dom_id topic %>">
-        <%= link_to topic.title_text, topic_path(topic), class: 'sm:hover:text-primary sm:hover:link' %>
+        <%= link_to topic.title_text, topic_path(topic), class: 'text-lg sm:hover:text-primary sm:hover:link' %>
       </li>
     <% end %>
   </ul>
