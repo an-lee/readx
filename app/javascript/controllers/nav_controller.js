@@ -32,7 +32,9 @@ export default class extends Controller {
     }
   }
 
-  genericShare() {
+  genericShare(event) {
+    event.preventDefault();
+
     const text = document.querySelector('meta[name="description"]').content;
     const title = document.title;
     const url = location.href;

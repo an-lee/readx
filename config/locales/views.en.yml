@@ -11,6 +11,8 @@ en:
       daily: Daily
       news: News
       opinions: Opinions
+    papy:
+      more: More
   topics:
     topic:
       detail: Topic Detail

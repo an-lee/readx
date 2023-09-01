@@ -11,6 +11,8 @@ zh-CN:
       daily: 每日早报
       news: 最新资讯
       opinions: 市场观点
+    pagy:
+      more: 加载更多
   topics:
     topic:
       detail: 查看话题
