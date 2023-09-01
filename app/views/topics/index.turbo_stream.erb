@@ -1,15 +1,13 @@
-<%= turbo_frame_tag "topics" do %>
-  <% if params[:after].present? %>
-    <%= turbo_stream.prepend "topics-pending" do %>
-      <%= render partial: "topics/topic", collection: @topics.reverse %>
-    <% end %>
-  <% else %>
-    <%= turbo_stream.append "topics-list" do %>
-      <%= render partial: "topics/topic", collection: @topics %>
-    <% end %>
+<% if params[:after].present? %>
+  <%= turbo_stream.prepend "topics-pending" do %>
+    <%= render partial: "topics/topic", collection: @topics.reverse %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.append "topics-list" do %>
+    <%= render partial: "topics/topic", collection: @topics %>
+  <% end %>
 
-    <%= turbo_stream.update "topics-pagy" do %>
-      <%= render 'components/pagy', pagy: @pagy, before: @topics.last&.id %>
-    <% end %>
+  <%= turbo_stream.update "topics-pagy" do %>
+    <%= render 'components/pagy', pagy: @pagy, before: @topics.last&.id %>
   <% end %>
 <% end %>
