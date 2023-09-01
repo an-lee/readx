@@ -1,13 +1,7 @@
 <ul class="menu menu-xs min-h-full bg-base-100 text-base-content divide-y border-r pt-16 sm:pt-0 pb-16 sm:pb-0">
   <% CoinGecko.coins_markets_cache.each do |market| %>
-    <% next if market.blank? %>
-
     <li class="">
-      <%= link_to stories_path(tag: market['symbol']&.upcase), 
-        data: {
-          turbo_frame: '_top'
-        },
-        class: "block #{request&.params&.[](:tag) == market['symbol']&.upcase ? 'bg-base-200' : ''}" do %>
+      <div class="block relative <%= request.params[:tag] == market['symbol'].upcase ? 'bg-base-200' : '' %>">
         <div class="flex items-center justify-between font-mono">
           <div class="text-sm uppercase opacity-50">
             <%= market['symbol'] %>
@@ -16,11 +10,18 @@
             $<%= pretty_price market['current_price'] %>
           </div>
         </div>
-
         <div class="flex justify-end text-xs <%= market['price_change_percentage_24h'] > 0 ? 'text-green-600' : 'text-red-600' %>">
           <%= format('%.2f', market['price_change_percentage_24h'].to_f) %>%
         </div>
-      <% end %>
+
+        <%= link_to stories_path(tag: market['symbol'].upcase), 
+          data: {
+            turbo_frame: '_top'
+          },
+          class: 'absolute inset-0' do %>
+          <span class='sr-only'><%= market['symbol'] %></span>
+        <% end %>
+      </div>
     </li>
   <% end %>
 </ul>

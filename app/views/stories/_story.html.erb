@@ -9,13 +9,14 @@
     <div class="relative">
       <span data-card-target="title" class="text-lg sm:hover:link sm:hover:text-primary">
         <%= story.title_text %>
-        <%= link_to story.title_text, 
-          story_path(story), 
+        <%= link_to story_path(story), 
           data: {
             controller: 'prefetch',
             turbo_frame: '_top'
           },
-          class: 'absolute inset-0 w-full hidden sm:block opacity-0' %>
+          class: 'absolute inset-0 w-full hidden sm:block' do %>
+          <span class='sr-only'><%= story.title_text %></span>
+        <% end %>
       </span>
 
       <span class="text-xs opacity-70">
