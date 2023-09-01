@@ -9,7 +9,7 @@
     <div class="relative">
       <span data-card-target="title" class="text-lg sm:hover:link sm:hover:text-primary">
         <%= topic.title_text %>
-        <%= link_to '', topic_path(topic), 
+        <%= link_to topic.title_text, topic_path(topic), 
           data: {
             controller: 'prefetch',
             turbo_frame: '_top',
