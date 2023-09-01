@@ -35,13 +35,13 @@ export default class extends Controller {
   genericShare(event) {
     event.preventDefault();
 
-    const text = document.querySelector('meta[name="description"]').content;
+    // const text = document.querySelector('meta[name="description"]').content;
     const title = document.title;
     const url = location.href;
 
     navigator.share({
       title,
-      text,
+      text: title,
       url,
     });
   }

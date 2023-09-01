@@ -15,10 +15,11 @@ export default class extends Controller {
   };
 
   connect() {
+    const title = this.titleValue || document.title.split("|")[1];
     const text =
       this.textValue ||
-      document.querySelector('meta[name="description"]').content;
-    const title = this.titleValue || document.title.split("|")[1];
+      document.querySelector('meta[name="description"]')?.content ||
+      title;
     const url = this.urlValue || location.href;
     const icon = this.iconUrlValue || location.origin + "/logo.png";
 
