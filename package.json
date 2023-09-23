@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "daisyui": "^3.6.3",
+    "daisyui": "^3.7.7",
     "tailwind-scrollbar-hide": "^1.1.7"
   },
   "packageManager": "yarn@1.22.19"
