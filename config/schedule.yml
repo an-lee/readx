@@ -1,5 +1,5 @@
 stories_collect_from_google_job:
-  cron: "*/15 * * * *" # every 15 minutes
+  cron: "*/30 * * * *" # every 30 minutes
   class: "Stories::CollectFromGoogleJob"
 stories_collect_blogs_from_google_job:
   cron: "0 * * * *" # every hour
