@@ -1,24 +1,18 @@
-# README
+# READX
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Workflow
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1. Collect stories (from Google)
+   - use [ValueSerp](https://www.valueserp.com/) API
+2. Scrape story's full text
+3. Analyze stories (using ChatGPT)
+   - summary
+   - fact/opinion
+   - score
+   - sentiment
+   - tags
+   - locale
+4. Translate story (using ChatGPT)
+5. Classfiy story (using ChatGPT)
+   - Embedding
+   - Classify the stories with the same topic(like embedding cosine distance < 0.15)
